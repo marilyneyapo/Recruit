@@ -1,0 +1,157 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <style>
+
+        .register-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        #personal-info-section, #account-info-section {
+            margin-bottom: 20px;
+            transition: opacity 0.5s ease;
+        }
+
+        h2 {
+            margin-bottom: 10px;
+        }
+
+        #next-button, #submit-button, #previous-button{
+            display: inline-block;
+            margin-top: 10px;
+            padding: 10px 15px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        #next-button:hover, #submit-button:hover, #previous-button {
+            background-color: #0056b3;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .form-group .error {
+            color: #d9534f;
+            font-size: 14px;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <div class="register-container">
+        <div id="personal-info-section">
+            <h2>Personal Information</h2>
+            {{ form_start(registrationForm, {'attr': {'novalidate': 'novalidate'}}) }}
+            <div class="form-group">
+                {{ form_label(registrationForm.firstName) }}
+                {{ form_widget(registrationForm.firstName) }}
+                {{ form_errors(registrationForm.firstName) }}
+            </div>
+            <div class="form-group">
+                {{ form_label(registrationForm.lastName) }}
+                {{ form_widget(registrationForm.lastName) }}
+                {{ form_errors(registrationForm.lastName) }}
+            </div>
+            <div class="form-group">
+                {{ form_label(registrationForm.phone) }}
+                {{ form_widget(registrationForm.phone) }}
+                {{ form_errors(registrationForm.phone) }}
+            </div>
+            <div class="form-group">
+                {{ form_label(registrationForm.address) }}
+                {{ form_widget(registrationForm.address) }}
+                {{ form_errors(registrationForm.address) }}
+            </div>
+            <div class="form-group">
+                {{ form_label(registrationForm.city) }}
+                {{ form_widget(registrationForm.city) }}
+                {{ form_errors(registrationForm.city) }}
+            </div>
+            <div class="form-group">
+                {{ form_label(registrationForm.birthdate) }}
+                {{ form_widget(registrationForm.birthdate) }}
+                {{ form_errors(registrationForm.birthdate) }}
+            </div>
+            <div class="form-group">
+                {{ form_label(registrationForm.domaine) }}
+                {{ form_widget(registrationForm.domaine) }}
+                {{ form_errors(registrationForm.domaine) }}
+            </div>
+            <div class="form-group">
+                {{ form_label(registrationForm.cvFile) }}
+                {{ form_widget(registrationForm.cvFile) }}
+                {{ form_errors(registrationForm.cvFile) }}
+            </div>
+            <button id="next-button" type="button">→</button>
+        </div>
+        
+        <div id="account-info-section" style="display:none;">
+            <h2>Account Information</h2>
+            <div class="form-group">
+                {{ form_label(registrationForm.email) }}
+                {{ form_widget(registrationForm.email) }}
+                {{ form_errors(registrationForm.email) }}
+            </div>
+            <div class="form-group">
+                {{ form_label(registrationForm.plainPassword.first) }}
+                {{ form_widget(registrationForm.plainPassword.first) }}
+                {{ form_errors(registrationForm.plainPassword.first) }}
+            </div>
+            <div class="form-group">
+                {{ form_label(registrationForm.plainPassword.second) }}
+                {{ form_widget(registrationForm.plainPassword.second) }}
+                {{ form_errors(registrationForm.plainPassword.second) }}
+            </div>
+            <button id="previous-button" type="button">←</button>
+
+            <button id="submit-button" type="submit">Register</button>
+            {{ form_end(registrationForm) }}
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('next-button').addEventListener('click', function() {
+            document.getElementById('personal-info-section').style.opacity = '0';
+            setTimeout(function() {
+                document.getElementById('personal-info-section').style.display = 'none';
+                document.getElementById('account-info-section').style.display = 'block';
+                document.getElementById('account-info-section').style.opacity = '1';
+            }, 500);
+        });
+
+        document.getElementById('previous-button').addEventListener('click', function() {
+            document.getElementById('account-info-section').style.opacity = '0';
+            setTimeout(function() {
+                document.getElementById('account-info-section').style.display = 'none';
+                document.getElementById('personal-info-section').style.display = 'block';
+                setTimeout(function() {
+                    document.getElementById('personal-info-section').style.opacity = '1';
+                }, 100);  // Délai pour l'effet de transition
+            }, 500);
+        });
+    </script>
+{% endblock %}

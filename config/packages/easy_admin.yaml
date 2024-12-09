@@ -1,0 +1,8 @@
+easy_admin:
+    dashboard: 
+      controller: App\Controller\Admin\AdminController
+      
+    design:
+      notification:
+            enabled: true
+        

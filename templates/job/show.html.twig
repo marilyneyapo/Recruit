@@ -1,0 +1,124 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <style>
+        .job {
+            background-color: #f4f4f4;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin: 20px auto;
+            max-width: 700px;
+            font-family: Arial, sans-serif;
+        }
+
+        .job header {
+            background-color: #003366;
+            color: white;
+            padding: 20px;
+            border-radius: 10px 10px 0 0;
+        }
+
+        .job header h1 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .job header h2 {
+            font-size: 1.5rem;
+            font-weight: normal;
+        }
+
+        .post-meta {
+            font-size: 0.9rem;
+            color: #cccccc;
+        }
+
+        .job-details {
+            padding: 20px;
+            background-color: white;
+            border-radius: 0 0 10px 10px;
+        }
+
+        .job-type {
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .job-description {
+            font-size: 1rem;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .how-to-apply {
+            padding: 20px;
+            background-color: #e6f2ff;
+            border-left: 4px solid #003366;
+            border-radius: 10px;
+        }
+
+        .how-to-apply h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+
+        .application-instructions {
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        .actions {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .actions .btn {
+            margin: 5px;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .actions .btn-primary {
+            background-color: #003366;
+            color: white;
+        }
+
+        .actions .btn-secondary {
+            background-color: #cccccc;
+            color: black;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <article class="job">
+        <header>
+            <h1>{{ job.position }}</h1>
+            <h2>{{ job.company }} <small>({{ job.location }})</small></h2>
+            <p class="post-meta">Posted at  {{ job.createdat|date('F d, Y') }}</p>
+        </header>
+
+        <section class="job-details">
+            <p class="job-type"><strong>Type de poste:</strong> {{ job.type }}</p>
+            <div class="job-description">
+                {{ job.description|nl2br }}
+            </div>
+        </section>
+
+        <section class="how-to-apply">
+            <h3>Comment postuler</h3>
+            <div class="application-instructions">
+                {{ job.howToApply|nl2br }}
+            </div>
+        </section>
+        <br>
+
+        <footer class="actions">
+            <a class="btn btn-secondary" href="{{ path('jobs_by_category', { 'category': job.category }) }}">Retour</a>
+            <a class="btn btn-primary" href="{{ path('job.apply', { 'id': job.id }) }}">Postuler Maintenant !!!</a>
+        </footer>
+    </article>
+{% endblock %}

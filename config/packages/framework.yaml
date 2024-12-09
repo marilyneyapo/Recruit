@@ -1,0 +1,38 @@
+# see https://symfony.com/doc/current/reference/configuration/framework.html
+framework:
+    secret: '%env(APP_SECRET)%'
+    #csrf_protection: true
+    #error_controller: 'App\Controller\ErrorController::showErrorPage'
+
+
+    # Note that the session will be started ONLY if you read or write from it.
+    session:
+        enabled: true
+        handler_id: null # Utilisez null pour la gestion par défaut des sessions PHP
+        cookie_secure: auto
+        cookie_samesite: lax
+
+
+    mailer:
+        dsn: 'smtp://localhost:2525' 
+        
+
+    #esi: true
+    #fragments: true
+
+    assets:
+        base_path: '/'
+        version: 'v1'
+        version_format: '%%s?v=%%s'
+
+when@test:
+    framework:
+        test: true
+        session:
+            storage_factory_id: session.storage.factory.mock_file
+            handler_id: null
+            cookie_secure: auto
+            cookie_samesite: lax
+            name: MYAPPSESSID 
+            cookie_lifetime: 6 
+

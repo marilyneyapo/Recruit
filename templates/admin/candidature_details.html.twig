@@ -1,0 +1,134 @@
+{% extends '@EasyAdmin/page/content.html.twig' %}
+
+{% block content %}
+
+    <div class="candidature-details">
+        <h2>Détails de la candidature</h2>
+        
+        <div class="info-section">
+            <p><strong>Nom :</strong> {{ candidat.user.firstName }} {{ candidat.user.lastName }}</p>
+            <p><strong>Email :</strong> {{ candidat.user.email }}</p>
+            <p><strong>Score :</strong> {{ candidat.cv.score }}</p>
+
+            <p><strong>Poste candidaté :</strong>
+
+
+                {% if candidat.job is not null %}
+                    {{ candidat.job.position }}
+                    {{ candidat.job.company }}
+
+                {% else %}
+                    <em>Aucune offre disponible</em>
+                {% endif %}
+            </p>
+            <p><strong>Date de candidature :</strong> {{ candidat.createdAt|date('Y-m-d H:i') }}</p>
+        </div>
+
+        <div class="cv-section">
+            <p><strong>CV :</strong></p>
+            {% if candidat.user.getCvFile() is not null %}
+                <a href="{{ asset('uploads/cvs/' ~ candidat.user.getCvFile()) }}" target="_blank" class="btn btn-primary">Télécharger le CV</a>
+            {% else %}
+                <em>Aucun CV téléchargé</em>
+            {% endif %}
+        </div>
+       
+
+        <div class="reply-section">
+            <h3>Répondre au candidat</h3>
+            <form method="post" action="{#{ path('reply_to_candidate', {id: candidat.id}) }#}">
+                <textarea name="responseMessage" rows="6" class="form-control" placeholder="Votre réponse..."></textarea>
+                <button type="submit" class="btn btn-success mt-3">Envoyer la réponse</button>
+            </form>
+        </div>
+    </div>
+
+    <style>
+        .candidature-details {
+            max-width: 800px;
+            margin: 30px auto;
+            background-color: #fff;
+            padding: 25px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .candidature-details h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .info-section, .cv-section, .response-section, .reply-section {
+            margin-bottom: 20px;
+        }
+
+        .info-section p, .cv-section p {
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            font-size: 14px;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+        .btn-success {
+            background-color: #28a745;
+            color: #fff;
+        }
+
+        .btn-success:hover {
+            background-color: #218838;
+        }
+
+        .response-list {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .response-list li {
+            background-color: #f8f9fa;
+            border: 1px solid #e1e1e1;
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+
+        .reply-section textarea {
+            width: 100%;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 10px;
+            font-size: 14px;
+            resize: vertical;
+        }
+
+        .reply-section button {
+            padding: 12px 20px;
+            border: none;
+            background-color: #28a745;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .reply-section button:hover {
+            background-color: #218838;
+        }
+
+    </style>
+
+{% endblock %}

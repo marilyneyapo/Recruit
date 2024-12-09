@@ -1,0 +1,133 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <style>
+        /* Conteneur principal pour afficher les offres en ligne */
+        .job-category {
+            display: flex;
+            flex-wrap: wrap; /* Permet aux éléments de passer à la ligne suivante si nécessaire */
+            gap: 20px; /* Espacement entre les offres */
+            padding: 20px;
+            justify-content: flex-start; /* Aligne les éléments au début de la ligne */
+        }
+
+        /* Style pour chaque offre d'emploi */
+        .job-item {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+            padding: 15px;
+            width: calc(25% - 20px); /* Largeur fixe pour chaque carte, ajustée pour l'espacement */
+            text-align: center;
+            display: flex;
+            flex-direction: column; /* Pour aligner le contenu verticalement dans chaque carte */
+            flex-shrink: 0; /* Empêche les éléments de se rétrécir */
+        }
+
+        /* Effet survol pour un léger effet 3D */
+        .job-item:hover {
+            transform: translateY(-5px) scale(1.05); /* Effet de survol */
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Logo de l'entreprise */
+        .job-logo img {
+            max-width: 100px; /* Logo plus petit */
+            height: auto;
+            margin-bottom: 10px;
+        }
+
+        /* Détails de l'offre */
+        .job-details h3 {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+
+        .job-details p {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 5px;
+        }
+
+        .btn {
+            margin-top: 10px;
+            font-size: 0.9rem;
+        }
+    </style>
+{% endblock %}
+
+
+
+
+
+
+
+{% block javascripts %}
+{% endblock %}
+
+{% block body %}
+    {# Affichage des catégories sous forme de liens pour filtrer les offres #}
+    <div class="category-list">
+        <li class="nav-item dropdown">
+            <!-- Bouton qui déclenche le menu déroulant -->
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="fas fa-briefcase"></i> Jobs
+            </a>
+
+            <!-- Liste déroulante -->
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                {% for category in categories %}
+                    <li>
+                        <!-- Lien vers les offres de chaque catégorie -->
+                        <a href="{{ path('jobs_by_category', { 'category': category.name }) }}" class="dropdown-item">
+                            {{ category.name }}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </li>
+    </div>
+
+    {# Affichage des offres par catégorie sélectionnée #}
+    {% if selectedCategory %}
+        <h2>{{ selectedCategory }}</h2>
+    {% endif %}
+
+    {# Vérification si des offres existent dans la catégorie #}
+    {% if jobs is not empty %}
+        <div class="job-category">
+            {% for job in jobs %}
+                <div class="job-item">
+                    {% if job.logo %}
+                        <div class="job-logo">
+                            <img src="{{ job.logo is not empty ? asset('uploads/joblogos/' ~ job.logo) : asset('images/default.png') }}" alt="{{ job.company }}">
+                        </div>
+                    {% endif %}
+
+                    <div class="job-details">
+                        <h3>
+                            <a href="{{ path('job.show', {id: job.id}) }}">
+                                {{ job.position }}
+                            </a>
+                        </h3>
+                        <p>{{ job.company }} - {{ job.location }}</p>
+                        <p>Type: {{ job.type }}</p>
+                        <p>Offre valable jusqu'au : {{ job.expiresAt | date('M-d-y H:i') }}</p>
+
+                        {% if job.isExpired() %}
+                            <p>Candidature expirée</p>
+                        {% else %}
+                            <p>En cours</p>
+                        {% endif %}
+
+                        <a href="{{ path('job.show', {id: job.id}) }}" class="btn btn-info">Voir</a>
+                        <a class="btn btn-primary" href="{{ path('job.apply', { 'id': job.id }) }}">Postuler</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>No jobs available in this category: {{ selectedCategory }}</p>
+    {% endif %}
+{% endblock %}

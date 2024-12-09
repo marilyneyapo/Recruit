@@ -1,0 +1,199 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <style>
+        body {
+            background-color: #e3f2fd; /* Light blue background */
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .cv-container {
+            max-width: 600px;
+            margin: 50px auto; /* Center the container */
+            background-color: #ffffff; /* White background for form */
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            color: #333;
+        }
+
+        h1 {
+            font-size: 2rem;
+            color: #1976d2; /* Blue color */
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .cv-section {
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            transition: box-shadow 0.3s ease;
+        }
+
+        .form-group:hover {
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group label {
+            font-weight: bold;
+            color: #555;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid #90caf9; /* Light blue border */
+            font-size: 1rem;
+            color: #333;
+            background-color: #f1f8e9; /* Light greenish */
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: #1976d2; /* Focus border color */
+            outline: none;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-submit {
+            background-color: #1976d2; /* Button color */
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 6px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            display: block;
+            width: 100%;
+            text-align: center;
+            margin-top: 20px; /* Space above button */
+        }
+
+        .btn-submit:hover {
+            background-color: #0d47a1; /* Darker on hover */
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            text-decoration: none;
+            color: #1976d2;
+            font-weight: bold;
+            transition: color 0.3s ease;
+            text-align: center;
+        }
+
+        a:hover {
+            text-decoration: underline;
+            color: #004d40;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 600px) {
+            .cv-container {
+                padding: 20px;
+            }
+
+            .btn-submit {
+                font-size: 1rem;
+            }
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+
+
+<h1>Soumettre votre CV pour le poste : {{ job.position }}</h1>
+
+    {# Affichage des messages flash #}
+    {% for label, messages in app.flashes %}
+        <div class="alert alert-{{ label }}">
+            {% for message in messages %}
+                <p>{{ message }}</p>
+            {% endfor %}
+        </div>
+    {% endfor %}
+
+    
+    <div class="cv-container">
+        <h1>Fill Out This Form</h1>
+        {% if candidat.user.cvFile %}
+        <p>Votre CV actuel : <a href="{{ asset('uploads/cvs/' ~ candidat.user.cvFile) }}" target="_blank">Voir votre CV</a></p>
+        {% endif %}
+
+        {{ form_start(cvForm) }}
+        <div class="form-group">
+            {{ form_label(cvForm.category) }}
+            {{ form_widget(cvForm.category) }}
+        </div>
+
+        <div id="questions-container">
+            <!-- Questions will be injected here by JavaScript -->
+        </div>
+
+        <div class="form-group">
+            {{ form_label(cvForm.cvFile) }}
+            {{ form_widget(cvForm.cvFile) }}
+        </div>
+
+        <button type="submit" class="btn-submit">Submit</button>
+        {{ form_end(cvForm) }}
+    </div>
+
+    <script>
+        const categorySelect = document.querySelector('#cv_category');
+        const questionsContainer = document.getElementById('questions-container');
+
+        categorySelect.addEventListener('change', function () {
+            const categoryId = this.value;
+            if (categoryId) {
+                fetch(`/category/${categoryId}/questions`)
+                    .then(response => response.json())
+                    .then(questions => {
+                        questionsContainer.innerHTML = '';
+                        questions.forEach(question => {
+                            const questionElement = document.createElement('div');
+                            questionElement.classList.add('form-group'); // Add form-group class for consistent styling
+                            questionElement.innerHTML = `<label>${question.question}</label>`;
+                            
+                            if (question.type === 'unique' || question.type === 'multiple') {
+                                const select = document.createElement('select');
+                                select.multiple = (question.type === 'multiple');
+                                select.classList.add('form-control'); // Bootstrap-like styling
+                                question.options.forEach(option => {
+                                    const optionElement = document.createElement('option');
+                                    optionElement.value = option;
+                                    optionElement.text = option;
+                                    select.appendChild(optionElement);
+                                });
+                                questionElement.appendChild(select);
+                            } else if (question.type === 'text') {
+                                const textarea = document.createElement('textarea');
+                                textarea.classList.add('form-control'); // Bootstrap-like styling
+                                questionElement.appendChild(textarea);
+                            }
+
+                            questionsContainer.appendChild(questionElement);
+                        });
+                    });
+            } else {
+                questionsContainer.innerHTML = '';
+            }
+        });
+    </script>
+{% endblock %}

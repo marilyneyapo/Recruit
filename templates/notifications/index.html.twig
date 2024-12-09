@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Notifications</h1>
+
+    <h2>Nouvelles Candidatures ({{ newCandidaturesCount }})</h2>
+
+    {% for candidature in candidatures %}
+        <h3>Candidature de {{ candidature.user.firstName }} {{ candidature.user.lastName }}</h3>
+
+        <ul>
+            {% for notification in notifications %}
+                <li>{{ notification }}</li>
+            {% endfor %}
+        </ul>
+
+        <h4>Questions et Réponses</h4>
+        <ul>
+            {% for answer in candidature.user.answers %}
+                <li>
+                    <strong>{{ answer.question.text }}:</strong>
+                    {% if answer.question.type == 'text' %}
+                        {{ answer.answerText }}
+                    {% else %}
+                        {{ answer.answerOptions }}
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    {% endfor %}
+
+    <h2>Candidatures</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>Email</th>
+                <th>CV</th>
+                <th>Questions et Réponses</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for candidature in candidatures %}
+                <tr>
+                    <td>{{ candidature.user.lastName }}</td>
+                    <td>{{ candidature.user.firstName }}</td>
+                    <td>{{ candidature.user.email }}</td>
+                    <td>
+                        <a href="{{ path('app_cv_download', { id: candidature.cv.id }) }}">Télécharger CV</a>
+                    </td>
+                    <td>
+                        <ul>
+                            {% for answer in candidature.user.answers %}
+                                <li>
+                                    <strong>{{ answer.question.text }}:</strong>
+                                    {% if answer.question.type == 'text' %}
+                                        {{ answer.answerText }}
+                                    {% else %}
+                                        {{ answer.answerOptions }}
+                                    {% endif %}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
