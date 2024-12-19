@@ -177,131 +177,95 @@ class __TwigTemplate_eec79fd5001ca4b51f6df117f139fbe6 extends Template
         // line 70
         yield "    ";
         // line 71
-        yield "    <div class=\"category-list\">
-        <li class=\"nav-item dropdown\">
-            <!-- Bouton qui déclenche le menu déroulant -->
-            <a class=\"nav-link dropdown-toggle\" href=\"#\" id=\"navbarDropdown\" role=\"button\" data-bs-toggle=\"dropdown\" aria-expanded=\"false\">
-                <i class=\"fas fa-briefcase\"></i> Jobs
-            </a>
-
-            <!-- Liste déroulante -->
-            <ul class=\"dropdown-menu\" aria-labelledby=\"navbarDropdown\">
-                ";
-        // line 80
-        $context['_parent'] = $context;
-        $context['_seq'] = CoreExtension::ensureTraversable((isset($context["categories"]) || array_key_exists("categories", $context) ? $context["categories"] : (function () { throw new RuntimeError('Variable "categories" does not exist.', 80, $this->source); })()));
-        foreach ($context['_seq'] as $context["_key"] => $context["category"]) {
-            // line 81
-            yield "                    <li>
-                        <!-- Lien vers les offres de chaque catégorie -->
-                        <a href=\"";
-            // line 83
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("jobs_by_category", ["category" => CoreExtension::getAttribute($this->env, $this->source, $context["category"], "name", [], "any", false, false, false, 83)]), "html", null, true);
-            yield "\" class=\"dropdown-item\">
-                            ";
-            // line 84
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["category"], "name", [], "any", false, false, false, 84), "html", null, true);
-            yield "
-                        </a>
-                    </li>
-                ";
-        }
-        $_parent = $context['_parent'];
-        unset($context['_seq'], $context['_key'], $context['category'], $context['_parent']);
-        $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 88
-        yield "            </ul>
-        </li>
-    </div>
-
+        yield "
     ";
-        // line 93
+        // line 73
         yield "    ";
-        if ((isset($context["selectedCategory"]) || array_key_exists("selectedCategory", $context) ? $context["selectedCategory"] : (function () { throw new RuntimeError('Variable "selectedCategory" does not exist.', 93, $this->source); })())) {
-            // line 94
+        if ((isset($context["selectedCategory"]) || array_key_exists("selectedCategory", $context) ? $context["selectedCategory"] : (function () { throw new RuntimeError('Variable "selectedCategory" does not exist.', 73, $this->source); })())) {
+            // line 74
             yield "        <h2>";
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape((isset($context["selectedCategory"]) || array_key_exists("selectedCategory", $context) ? $context["selectedCategory"] : (function () { throw new RuntimeError('Variable "selectedCategory" does not exist.', 94, $this->source); })()), "html", null, true);
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape((isset($context["selectedCategory"]) || array_key_exists("selectedCategory", $context) ? $context["selectedCategory"] : (function () { throw new RuntimeError('Variable "selectedCategory" does not exist.', 74, $this->source); })()), "html", null, true);
             yield "</h2>
     ";
         }
-        // line 96
+        // line 76
         yield "
     ";
-        // line 98
+        // line 78
         yield "    ";
-        if ( !Twig\Extension\CoreExtension::testEmpty((isset($context["jobs"]) || array_key_exists("jobs", $context) ? $context["jobs"] : (function () { throw new RuntimeError('Variable "jobs" does not exist.', 98, $this->source); })()))) {
-            // line 99
+        if ( !Twig\Extension\CoreExtension::testEmpty((isset($context["jobs"]) || array_key_exists("jobs", $context) ? $context["jobs"] : (function () { throw new RuntimeError('Variable "jobs" does not exist.', 78, $this->source); })()))) {
+            // line 79
             yield "        <div class=\"job-category\">
             ";
-            // line 100
+            // line 80
             $context['_parent'] = $context;
-            $context['_seq'] = CoreExtension::ensureTraversable((isset($context["jobs"]) || array_key_exists("jobs", $context) ? $context["jobs"] : (function () { throw new RuntimeError('Variable "jobs" does not exist.', 100, $this->source); })()));
+            $context['_seq'] = CoreExtension::ensureTraversable((isset($context["jobs"]) || array_key_exists("jobs", $context) ? $context["jobs"] : (function () { throw new RuntimeError('Variable "jobs" does not exist.', 80, $this->source); })()));
             foreach ($context['_seq'] as $context["_key"] => $context["job"]) {
-                // line 101
+                // line 81
                 yield "                <div class=\"job-item\">
                     ";
-                // line 102
-                if (CoreExtension::getAttribute($this->env, $this->source, $context["job"], "logo", [], "any", false, false, false, 102)) {
-                    // line 103
+                // line 82
+                if (CoreExtension::getAttribute($this->env, $this->source, $context["job"], "logo", [], "any", false, false, false, 82)) {
+                    // line 83
                     yield "                        <div class=\"job-logo\">
                             <img src=\"";
-                    // line 104
-                    yield (( !Twig\Extension\CoreExtension::testEmpty(CoreExtension::getAttribute($this->env, $this->source, $context["job"], "logo", [], "any", false, false, false, 104))) ? ($this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl(("uploads/joblogos/" . CoreExtension::getAttribute($this->env, $this->source, $context["job"], "logo", [], "any", false, false, false, 104))), "html", null, true)) : ($this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("images/default.png"), "html", null, true)));
+                    // line 84
+                    yield (( !Twig\Extension\CoreExtension::testEmpty(CoreExtension::getAttribute($this->env, $this->source, $context["job"], "logo", [], "any", false, false, false, 84))) ? ($this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl(("uploads/joblogos/" . CoreExtension::getAttribute($this->env, $this->source, $context["job"], "logo", [], "any", false, false, false, 84))), "html", null, true)) : ($this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("images/default.png"), "html", null, true)));
                     yield "\" alt=\"";
-                    yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["job"], "company", [], "any", false, false, false, 104), "html", null, true);
+                    yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["job"], "company", [], "any", false, false, false, 84), "html", null, true);
                     yield "\">
                         </div>
                     ";
                 }
-                // line 107
+                // line 87
                 yield "
                     <div class=\"job-details\">
                         <h3>
                             <a href=\"";
-                // line 110
-                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("job.show", ["id" => CoreExtension::getAttribute($this->env, $this->source, $context["job"], "id", [], "any", false, false, false, 110)]), "html", null, true);
+                // line 90
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("job.show", ["id" => CoreExtension::getAttribute($this->env, $this->source, $context["job"], "id", [], "any", false, false, false, 90)]), "html", null, true);
                 yield "\">
                                 ";
-                // line 111
-                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["job"], "position", [], "any", false, false, false, 111), "html", null, true);
+                // line 91
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["job"], "position", [], "any", false, false, false, 91), "html", null, true);
                 yield "
                             </a>
                         </h3>
                         <p>";
-                // line 114
-                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["job"], "company", [], "any", false, false, false, 114), "html", null, true);
+                // line 94
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["job"], "company", [], "any", false, false, false, 94), "html", null, true);
                 yield " - ";
-                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["job"], "location", [], "any", false, false, false, 114), "html", null, true);
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["job"], "location", [], "any", false, false, false, 94), "html", null, true);
                 yield "</p>
                         <p>Type: ";
-                // line 115
-                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["job"], "type", [], "any", false, false, false, 115), "html", null, true);
+                // line 95
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["job"], "type", [], "any", false, false, false, 95), "html", null, true);
                 yield "</p>
                         <p>Offre valable jusqu'au : ";
-                // line 116
-                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Twig\Extension\CoreExtension']->formatDate(CoreExtension::getAttribute($this->env, $this->source, $context["job"], "expiresAt", [], "any", false, false, false, 116), "M-d-y H:i"), "html", null, true);
+                // line 96
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Twig\Extension\CoreExtension']->formatDate(CoreExtension::getAttribute($this->env, $this->source, $context["job"], "expiresAt", [], "any", false, false, false, 96), "M-d-y H:i"), "html", null, true);
                 yield "</p>
 
                         ";
-                // line 118
-                if (CoreExtension::getAttribute($this->env, $this->source, $context["job"], "isExpired", [], "method", false, false, false, 118)) {
-                    // line 119
+                // line 98
+                if (CoreExtension::getAttribute($this->env, $this->source, $context["job"], "isExpired", [], "method", false, false, false, 98)) {
+                    // line 99
                     yield "                            <p>Candidature expirée</p>
                         ";
                 } else {
-                    // line 121
+                    // line 101
                     yield "                            <p>En cours</p>
                         ";
                 }
-                // line 123
+                // line 103
                 yield "
                         <a href=\"";
-                // line 124
-                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("job.show", ["id" => CoreExtension::getAttribute($this->env, $this->source, $context["job"], "id", [], "any", false, false, false, 124)]), "html", null, true);
+                // line 104
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("job.show", ["id" => CoreExtension::getAttribute($this->env, $this->source, $context["job"], "id", [], "any", false, false, false, 104)]), "html", null, true);
                 yield "\" class=\"btn btn-info\">Voir</a>
                         <a class=\"btn btn-primary\" href=\"";
-                // line 125
-                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("job.apply", ["id" => CoreExtension::getAttribute($this->env, $this->source, $context["job"], "id", [], "any", false, false, false, 125)]), "html", null, true);
+                // line 105
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("job.apply", ["id" => CoreExtension::getAttribute($this->env, $this->source, $context["job"], "id", [], "any", false, false, false, 105)]), "html", null, true);
                 yield "\">Postuler</a>
                     </div>
                 </div>
@@ -310,13 +274,13 @@ class __TwigTemplate_eec79fd5001ca4b51f6df117f139fbe6 extends Template
             $_parent = $context['_parent'];
             unset($context['_seq'], $context['_key'], $context['job'], $context['_parent']);
             $context = array_intersect_key($context, $_parent) + $_parent;
-            // line 129
+            // line 109
             yield "        </div>
     ";
         } else {
-            // line 131
+            // line 111
             yield "        <p>No jobs available in this category: ";
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape((isset($context["selectedCategory"]) || array_key_exists("selectedCategory", $context) ? $context["selectedCategory"] : (function () { throw new RuntimeError('Variable "selectedCategory" does not exist.', 131, $this->source); })()), "html", null, true);
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape((isset($context["selectedCategory"]) || array_key_exists("selectedCategory", $context) ? $context["selectedCategory"] : (function () { throw new RuntimeError('Variable "selectedCategory" does not exist.', 111, $this->source); })()), "html", null, true);
             yield "</p>
     ";
         }
@@ -350,7 +314,7 @@ class __TwigTemplate_eec79fd5001ca4b51f6df117f139fbe6 extends Template
      */
     public function getDebugInfo(): array
     {
-        return array (  318 => 131,  314 => 129,  304 => 125,  300 => 124,  297 => 123,  293 => 121,  289 => 119,  287 => 118,  282 => 116,  278 => 115,  272 => 114,  266 => 111,  262 => 110,  257 => 107,  249 => 104,  246 => 103,  244 => 102,  241 => 101,  237 => 100,  234 => 99,  231 => 98,  228 => 96,  222 => 94,  219 => 93,  213 => 88,  203 => 84,  199 => 83,  195 => 81,  191 => 80,  180 => 71,  178 => 70,  165 => 69,  143 => 66,  78 => 4,  65 => 3,  42 => 1,);
+        return array (  282 => 111,  278 => 109,  268 => 105,  264 => 104,  261 => 103,  257 => 101,  253 => 99,  251 => 98,  246 => 96,  242 => 95,  236 => 94,  230 => 91,  226 => 90,  221 => 87,  213 => 84,  210 => 83,  208 => 82,  205 => 81,  201 => 80,  198 => 79,  195 => 78,  192 => 76,  186 => 74,  183 => 73,  180 => 71,  178 => 70,  165 => 69,  143 => 66,  78 => 4,  65 => 3,  42 => 1,);
     }
 
     public function getSourceContext(): Source
@@ -425,26 +389,6 @@ class __TwigTemplate_eec79fd5001ca4b51f6df117f139fbe6 extends Template
 
 {% block body %}
     {# Affichage des catégories sous forme de liens pour filtrer les offres #}
-    <div class=\"category-list\">
-        <li class=\"nav-item dropdown\">
-            <!-- Bouton qui déclenche le menu déroulant -->
-            <a class=\"nav-link dropdown-toggle\" href=\"#\" id=\"navbarDropdown\" role=\"button\" data-bs-toggle=\"dropdown\" aria-expanded=\"false\">
-                <i class=\"fas fa-briefcase\"></i> Jobs
-            </a>
-
-            <!-- Liste déroulante -->
-            <ul class=\"dropdown-menu\" aria-labelledby=\"navbarDropdown\">
-                {% for category in categories %}
-                    <li>
-                        <!-- Lien vers les offres de chaque catégorie -->
-                        <a href=\"{{ path('jobs_by_category', { 'category': category.name }) }}\" class=\"dropdown-item\">
-                            {{ category.name }}
-                        </a>
-                    </li>
-                {% endfor %}
-            </ul>
-        </li>
-    </div>
 
     {# Affichage des offres par catégorie sélectionnée #}
     {% if selectedCategory %}

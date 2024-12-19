@@ -90,15 +90,15 @@ class __TwigTemplate_3cc61d038688f04724d9f4451f2fb12a extends Template
     ";
         // line 24
         yield from $this->unwrap()->yieldBlock('stylesheets', $context, $blocks);
-        // line 30
+        // line 31
         yield "
     ";
-        // line 31
+        // line 32
         yield from $this->unwrap()->yieldBlock('javascripts', $context, $blocks);
-        // line 40
+        // line 41
         yield "
     <link rel=\"stylesheet\" href=\"";
-        // line 41
+        // line 42
         yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("assets/css/bootstrap.min.css"), "html", null, true);
         yield "\">
     <link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css\">
@@ -106,21 +106,21 @@ class __TwigTemplate_3cc61d038688f04724d9f4451f2fb12a extends Template
 
 <body>
     ";
-        // line 46
+        // line 47
         $context['_parent'] = $context;
-        $context['_seq'] = CoreExtension::ensureTraversable(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 46, $this->source); })()), "session", [], "any", false, false, false, 46), "flashBag", [], "any", false, false, false, 46), "all", [], "method", false, false, false, 46));
+        $context['_seq'] = CoreExtension::ensureTraversable(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 47, $this->source); })()), "session", [], "any", false, false, false, 47), "flashBag", [], "any", false, false, false, 47), "all", [], "method", false, false, false, 47));
         foreach ($context['_seq'] as $context["type"] => $context["messages"]) {
-            // line 47
+            // line 48
             yield "        ";
             $context['_parent'] = $context;
             $context['_seq'] = CoreExtension::ensureTraversable($context["messages"]);
             foreach ($context['_seq'] as $context["_key"] => $context["message"]) {
-                // line 48
+                // line 49
                 yield "            <div class=\"alert alert-";
                 yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($context["type"], "html", null, true);
                 yield "\">
                 ";
-                // line 49
+                // line 50
                 yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($context["message"], "html", null, true);
                 yield "
             </div>
@@ -129,23 +129,23 @@ class __TwigTemplate_3cc61d038688f04724d9f4451f2fb12a extends Template
             $_parent = $context['_parent'];
             unset($context['_seq'], $context['_key'], $context['message'], $context['_parent']);
             $context = array_intersect_key($context, $_parent) + $_parent;
-            // line 52
+            // line 53
             yield "    ";
         }
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['type'], $context['messages'], $context['_parent']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 53
+        // line 54
         yield "
 <nav class=\"navbar navbar-expand-lg navbar-light bg-light\">
     <div class=\"container-fluid\">
         <img src=\"";
-        // line 56
+        // line 57
         yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("assets/images/stratos logo.png"), "html", null, true);
         yield "\" alt=\"StratRecruit Logo\">
 
         <a class=\"navbar-brand\" href=\"";
-        // line 58
+        // line 59
         yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("job.list");
         yield "\"></a>
 
@@ -168,17 +168,17 @@ class __TwigTemplate_3cc61d038688f04724d9f4451f2fb12a extends Template
                     </a>
                     <ul class=\"dropdown-menu dropdown-menu-end\" aria-labelledby=\"navbarDropdown\">
                         <li><a class=\"dropdown-item\" href=\"";
-        // line 78
+        // line 79
         yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_profile");
         yield "\">Profile</a></li>
                         <li><a class=\"dropdown-item\" href=\"#\">Account Settings</a></li>
                         <li><hr class=\"dropdown-divider\"></li>
                         <li><a class=\"dropdown-item\" href=\"";
-        // line 81
+        // line 82
         yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_login");
         yield "\">Se connecter </a></li>
                         <li><a class=\"dropdown-item\" href=\"";
-        // line 82
+        // line 83
         yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_logout");
         yield "\">Logout</a></li>
 
@@ -192,15 +192,15 @@ class __TwigTemplate_3cc61d038688f04724d9f4451f2fb12a extends Template
 
 <div class=\"container\">
     ";
-        // line 93
-        yield from $this->unwrap()->yieldBlock('body', $context, $blocks);
         // line 94
+        yield from $this->unwrap()->yieldBlock('body', $context, $blocks);
+        // line 95
         yield "</div>
 
 <footer class=\"bg-light text-center text-lg-start mt-5\">
     <div class=\"text-center p-3\" style=\"background-color: rgba(0, 0, 0, 0.2);\">
         <span>© ";
-        // line 98
+        // line 99
         yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Twig\Extension\CoreExtension']->formatDate("now", "Y"), "html", null, true);
         yield " StratRecruit. Tous droits réservés.</span>
         <a href=\"#\" class=\"text-dark ms-3\">Politique de confidentialité</a> |
@@ -268,7 +268,8 @@ class __TwigTemplate_3cc61d038688f04724d9f4451f2fb12a extends Template
         yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("assets/css/style.css"), "html", null, true);
         yield "\">
 
-        <link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css\">
+        <link href=\"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css\" rel=\"stylesheet\">
+
     ";
         
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->leave($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof);
@@ -279,7 +280,7 @@ class __TwigTemplate_3cc61d038688f04724d9f4451f2fb12a extends Template
         yield from [];
     }
 
-    // line 31
+    // line 32
     /**
      * @return iterable<null|scalar|\Stringable>
      */
@@ -292,7 +293,7 @@ class __TwigTemplate_3cc61d038688f04724d9f4451f2fb12a extends Template
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "javascripts"));
 
-        // line 32
+        // line 33
         yield "        <script>
             document.addEventListener('DOMContentLoaded', function() {
                 setTimeout(function() {
@@ -310,7 +311,7 @@ class __TwigTemplate_3cc61d038688f04724d9f4451f2fb12a extends Template
         yield from [];
     }
 
-    // line 93
+    // line 94
     /**
      * @return iterable<null|scalar|\Stringable>
      */
@@ -353,7 +354,7 @@ class __TwigTemplate_3cc61d038688f04724d9f4451f2fb12a extends Template
      */
     public function getDebugInfo(): array
     {
-        return array (  314 => 93,  296 => 32,  283 => 31,  268 => 26,  263 => 25,  250 => 24,  227 => 5,  204 => 98,  198 => 94,  196 => 93,  182 => 82,  178 => 81,  172 => 78,  149 => 58,  144 => 56,  139 => 53,  133 => 52,  124 => 49,  119 => 48,  114 => 47,  110 => 46,  102 => 41,  99 => 40,  97 => 31,  94 => 30,  92 => 24,  87 => 22,  77 => 15,  73 => 14,  65 => 9,  58 => 5,  52 => 1,);
+        return array (  315 => 94,  297 => 33,  284 => 32,  268 => 26,  263 => 25,  250 => 24,  227 => 5,  204 => 99,  198 => 95,  196 => 94,  182 => 83,  178 => 82,  172 => 79,  149 => 59,  144 => 57,  139 => 54,  133 => 53,  124 => 50,  119 => 49,  114 => 48,  110 => 47,  102 => 42,  99 => 41,  97 => 32,  94 => 31,  92 => 24,  87 => 22,  77 => 15,  73 => 14,  65 => 9,  58 => 5,  52 => 1,);
     }
 
     public function getSourceContext(): Source
@@ -385,7 +386,8 @@ class __TwigTemplate_3cc61d038688f04724d9f4451f2fb12a extends Template
         <link rel=\"stylesheet\" href=\"{{ asset('assets/css/bootstrap.min.css') }}\">
         <link rel=\"stylesheet\" href=\"{{ asset('assets/css/style.css') }}\">
 
-        <link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css\">
+        <link href=\"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css\" rel=\"stylesheet\">
+
     {% endblock %}
 
     {% block javascripts %}

@@ -332,20 +332,42 @@ class __TwigTemplate_cf11b75c096b84288af94ef406a590b9 extends Template
                                 ";
                 // line 180
                 yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["offre"], "position", [], "any", false, false, false, 180), "html", null, true);
-                yield " - Statut : ";
-                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["offre"], "status", [], "any", false, false, false, 180), "html", null, true);
-                yield "
+                yield " 
+                                - Statut : 
+                                ";
+                // line 182
+                if ((CoreExtension::getAttribute($this->env, $this->source, $context["offre"], "status", [], "any", false, false, false, 182) == "en_attente")) {
+                    // line 183
+                    yield "                                    <span style=\"color: orange;\">En attente</span>
+                                ";
+                } elseif ((CoreExtension::getAttribute($this->env, $this->source,                 // line 184
+$context["offre"], "status", [], "any", false, false, false, 184) == "acceptee")) {
+                    // line 185
+                    yield "                                    <span style=\"color: green;\">Acceptée</span>
+                                ";
+                } elseif ((CoreExtension::getAttribute($this->env, $this->source,                 // line 186
+$context["offre"], "status", [], "any", false, false, false, 186) == "refusee")) {
+                    // line 187
+                    yield "                                    <span style=\"color: red;\">Refusée</span>
+                                ";
+                } else {
+                    // line 189
+                    yield "                                    <span style=\"color: gray;\">En attente</span>
+                                ";
+                }
+                // line 190
+                yield " 
                             </li>
                         ";
             }
             $_parent = $context['_parent'];
             unset($context['_seq'], $context['_key'], $context['offre'], $context['_parent']);
             $context = array_intersect_key($context, $_parent) + $_parent;
-            // line 183
+            // line 193
             yield "                    </ul>
                 ";
         }
-        // line 185
+        // line 195
         yield "            </div>
         </div>
     </div>
@@ -353,31 +375,31 @@ class __TwigTemplate_cf11b75c096b84288af94ef406a590b9 extends Template
 
 <h2>Suggestions pour vous</h2>
 ";
-        // line 191
-        if (Twig\Extension\CoreExtension::testEmpty((isset($context["suggestions"]) || array_key_exists("suggestions", $context) ? $context["suggestions"] : (function () { throw new RuntimeError('Variable "suggestions" does not exist.', 191, $this->source); })()))) {
-            // line 192
+        // line 201
+        if (Twig\Extension\CoreExtension::testEmpty((isset($context["suggestions"]) || array_key_exists("suggestions", $context) ? $context["suggestions"] : (function () { throw new RuntimeError('Variable "suggestions" does not exist.', 201, $this->source); })()))) {
+            // line 202
             yield "    <p>Aucune suggestion d'emploi trouvée.</p>
 ";
         } else {
-            // line 194
+            // line 204
             yield "    <ul>
         ";
-            // line 195
+            // line 205
             $context['_parent'] = $context;
-            $context['_seq'] = CoreExtension::ensureTraversable((isset($context["suggestions"]) || array_key_exists("suggestions", $context) ? $context["suggestions"] : (function () { throw new RuntimeError('Variable "suggestions" does not exist.', 195, $this->source); })()));
+            $context['_seq'] = CoreExtension::ensureTraversable((isset($context["suggestions"]) || array_key_exists("suggestions", $context) ? $context["suggestions"] : (function () { throw new RuntimeError('Variable "suggestions" does not exist.', 205, $this->source); })()));
             foreach ($context['_seq'] as $context["_key"] => $context["job"]) {
-                // line 196
+                // line 206
                 yield "            <li>";
-                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["job"], "position", [], "any", false, false, false, 196), "html", null, true);
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["job"], "position", [], "any", false, false, false, 206), "html", null, true);
                 yield " - ";
-                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["job"], "category", [], "any", false, false, false, 196), "name", [], "any", false, false, false, 196), "html", null, true);
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["job"], "category", [], "any", false, false, false, 206), "name", [], "any", false, false, false, 206), "html", null, true);
                 yield "</li>
         ";
             }
             $_parent = $context['_parent'];
             unset($context['_seq'], $context['_key'], $context['job'], $context['_parent']);
             $context = array_intersect_key($context, $_parent) + $_parent;
-            // line 198
+            // line 208
             yield "    </ul>
 ";
         }
@@ -411,7 +433,7 @@ class __TwigTemplate_cf11b75c096b84288af94ef406a590b9 extends Template
      */
     public function getDebugInfo(): array
     {
-        return array (  381 => 198,  370 => 196,  366 => 195,  363 => 194,  359 => 192,  357 => 191,  349 => 185,  345 => 183,  334 => 180,  331 => 179,  327 => 178,  324 => 177,  320 => 175,  318 => 174,  306 => 165,  299 => 161,  292 => 157,  285 => 153,  274 => 145,  258 => 132,  242 => 121,  238 => 119,  225 => 118,  105 => 8,  101 => 6,  88 => 5,  65 => 3,  42 => 1,);
+        return array (  403 => 208,  392 => 206,  388 => 205,  385 => 204,  381 => 202,  379 => 201,  371 => 195,  367 => 193,  359 => 190,  355 => 189,  351 => 187,  349 => 186,  346 => 185,  344 => 184,  341 => 183,  339 => 182,  334 => 180,  331 => 179,  327 => 178,  324 => 177,  320 => 175,  318 => 174,  306 => 165,  299 => 161,  292 => 157,  285 => 153,  274 => 145,  258 => 132,  242 => 121,  238 => 119,  225 => 118,  105 => 8,  101 => 6,  88 => 5,  65 => 3,  42 => 1,);
     }
 
     public function getSourceContext(): Source
@@ -595,7 +617,17 @@ class __TwigTemplate_cf11b75c096b84288af94ef406a590b9 extends Template
                     <ul>
                         {% for offre in offres %}
                             <li>
-                                {{ offre.position }} - Statut : {{ offre.status }}
+                                {{ offre.position }} 
+                                - Statut : 
+                                {% if offre.status == 'en_attente' %}
+                                    <span style=\"color: orange;\">En attente</span>
+                                {% elseif offre.status == 'acceptee' %}
+                                    <span style=\"color: green;\">Acceptée</span>
+                                {% elseif offre.status == 'refusee' %}
+                                    <span style=\"color: red;\">Refusée</span>
+                                {% else %}
+                                    <span style=\"color: gray;\">En attente</span>
+                                {% endif %} 
                             </li>
                         {% endfor %}
                     </ul>

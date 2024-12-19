@@ -9,6 +9,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
@@ -40,6 +41,10 @@ class JobSearchType extends AbstractType
         
         ->add('search', SubmitType::class, [
             'label' => 'Search',
+        ])
+
+        ->add('_token', HiddenType::class, [
+            'data' => $builder->getData()['_token'] ?? null,
         ]);
     }
 

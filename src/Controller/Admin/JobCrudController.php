@@ -38,7 +38,7 @@ class JobCrudController extends AbstractCrudController
             IdField::new('id')->onlyOnIndex(),
             TextField::new('type'),
             TextField::new('company'),
-            IntegerField::new('anneesExperienceRequis'),
+            IntegerField::new('anneesExperienceRequise'),
             ImageField::new('logo')
                 ->setBasePath('uploads/joblogos/')
                 ->onlyOnIndex(),

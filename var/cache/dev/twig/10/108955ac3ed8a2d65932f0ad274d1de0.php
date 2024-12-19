@@ -136,35 +136,40 @@ class __TwigTemplate_2b7e72314f497912dacb7589e3ad946a extends Template
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "content"));
 
         // line 45
-        yield "<div class=\"content\">
-    <h2>Tableau de Bord Interactif</h2>
+        yield "    <div class=\"content\">
+        <h2>Tableau de Bord Interactif</h2>
 
-    <!-- Ligne de graphiques -->
-    <div class=\"chart-row\">
-        <div class=\"chart-card\">
-            <h4>Courbe d'Évolution des Postulants</h4>
-            <canvas id=\"lineChart\"></canvas>
+        <!-- Ligne de graphiques -->
+        <div class=\"chart-row\">
+            <div class=\"chart-card\">
+                <h4>Courbe d'Évolution des Postulants</h4>
+                <canvas id=\"lineChart\"></canvas>
+            </div>
+            
+
+            <div class=\"chart-card\">
+                <h4>Histogramme des Visites Mensuelles</h4>
+                <canvas id=\"barChart\"></canvas>
+            </div>
         </div>
-        
 
-        <div class=\"chart-card\">
-            <h4>Histogramme des Visites Mensuelles</h4>
-            <canvas id=\"barChart\"></canvas>
+        <!-- Deuxième ligne de graphiques -->
+        <div class=\"chart-row\">
+            <div class=\"chart-card\">
+                <h4>Radar des Compétences Postulants</h4>
+                <canvas id=\"radarChart\"></canvas>
+            </div>
+            <div class=\"chart-card\">
+                <h4>Graphique à Secteurs des Offres par Catégorie</h4>
+                <canvas id=\"pieChart\"></canvas>
+            </div>
         </div>
     </div>
-
-    <!-- Deuxième ligne de graphiques -->
-    <div class=\"chart-row\">
-        <div class=\"chart-card\">
-            <h4>Radar des Compétences Postulants</h4>
-            <canvas id=\"radarChart\"></canvas>
-        </div>
-        <div class=\"chart-card\">
-            <h4>Graphique à Secteurs des Offres par Catégorie</h4>
-            <canvas id=\"pieChart\"></canvas>
-        </div>
-    </div>
-</div>
+    ";
+        // line 74
+        yield from $this->unwrap()->yieldBlock('javascripts', $context, $blocks);
+        // line 183
+        yield "
 ";
         
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->leave($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof);
@@ -175,7 +180,7 @@ class __TwigTemplate_2b7e72314f497912dacb7589e3ad946a extends Template
         yield from [];
     }
 
-    // line 76
+    // line 74
     /**
      * @return iterable<null|scalar|\Stringable>
      */
@@ -188,7 +193,7 @@ class __TwigTemplate_2b7e72314f497912dacb7589e3ad946a extends Template
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "javascripts"));
 
-        // line 77
+        // line 75
         yield "
     <script src=\"https://cdn.jsdelivr.net/npm/chart.js\"></script>
 
@@ -327,7 +332,7 @@ class __TwigTemplate_2b7e72314f497912dacb7589e3ad946a extends Template
      */
     public function getDebugInfo(): array
     {
-        return array (  192 => 77,  179 => 76,  139 => 45,  126 => 44,  78 => 6,  65 => 5,  42 => 1,);
+        return array (  197 => 75,  184 => 74,  172 => 183,  170 => 74,  139 => 45,  126 => 44,  78 => 6,  65 => 5,  42 => 1,);
     }
 
     public function getSourceContext(): Source
@@ -376,38 +381,36 @@ class __TwigTemplate_2b7e72314f497912dacb7589e3ad946a extends Template
 {% endblock %}
 
 {% block content %}
-<div class=\"content\">
-    <h2>Tableau de Bord Interactif</h2>
+    <div class=\"content\">
+        <h2>Tableau de Bord Interactif</h2>
 
-    <!-- Ligne de graphiques -->
-    <div class=\"chart-row\">
-        <div class=\"chart-card\">
-            <h4>Courbe d'Évolution des Postulants</h4>
-            <canvas id=\"lineChart\"></canvas>
+        <!-- Ligne de graphiques -->
+        <div class=\"chart-row\">
+            <div class=\"chart-card\">
+                <h4>Courbe d'Évolution des Postulants</h4>
+                <canvas id=\"lineChart\"></canvas>
+            </div>
+            
+
+            <div class=\"chart-card\">
+                <h4>Histogramme des Visites Mensuelles</h4>
+                <canvas id=\"barChart\"></canvas>
+            </div>
         </div>
-        
 
-        <div class=\"chart-card\">
-            <h4>Histogramme des Visites Mensuelles</h4>
-            <canvas id=\"barChart\"></canvas>
+        <!-- Deuxième ligne de graphiques -->
+        <div class=\"chart-row\">
+            <div class=\"chart-card\">
+                <h4>Radar des Compétences Postulants</h4>
+                <canvas id=\"radarChart\"></canvas>
+            </div>
+            <div class=\"chart-card\">
+                <h4>Graphique à Secteurs des Offres par Catégorie</h4>
+                <canvas id=\"pieChart\"></canvas>
+            </div>
         </div>
     </div>
-
-    <!-- Deuxième ligne de graphiques -->
-    <div class=\"chart-row\">
-        <div class=\"chart-card\">
-            <h4>Radar des Compétences Postulants</h4>
-            <canvas id=\"radarChart\"></canvas>
-        </div>
-        <div class=\"chart-card\">
-            <h4>Graphique à Secteurs des Offres par Catégorie</h4>
-            <canvas id=\"pieChart\"></canvas>
-        </div>
-    </div>
-</div>
-{% endblock %}
-
-{% block javascripts %}
+    {% block javascripts %}
 
     <script src=\"https://cdn.jsdelivr.net/npm/chart.js\"></script>
 
@@ -516,6 +519,9 @@ class __TwigTemplate_2b7e72314f497912dacb7589e3ad946a extends Template
         });
     </script>
 {% endblock %}
+
+{% endblock %}
+
 
 ", "admin/dashboard.html.twig", "C:\\Users\\LENOVO\\Documents\\Stage\\Recruitment\\templates\\admin\\dashboard.html.twig");
     }

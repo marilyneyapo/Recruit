@@ -76,29 +76,40 @@ class JobRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    public function findBySearchCriteria(array $criteria): array
+    public function findBySearchCriteria(array $criteria)
     {
-        $qb = $this->createQueryBuilder('j');
-
-        // Ajoute les critères dynamiquement
-        if (!empty($criteria['location'])) {
-            $qb->andWhere('j.location LIKE :location')
-                ->setParameter('location', '%' . $criteria['location'] . '%');
-        }
-
+        $queryBuilder = $this->createQueryBuilder('j')
+            ->leftJoin('j.category', 'c');  // Seulement la jointure pour 'category'
+    
+        // Filtrer par catégorie
         if (!empty($criteria['category'])) {
-            $qb->andWhere('j.category = :category')
+            $queryBuilder->andWhere('c.id = :category')
                 ->setParameter('category', $criteria['category']);
         }
-
+    
+        // Filtrer par localisation (c'est un champ dans Job, pas une entité liée)
+        if (!empty($criteria['location'])) {
+            $queryBuilder->andWhere('j.location = :location')
+                ->setParameter('location', $criteria['location']);
+        }
+    
+        // Filtrer par type (c'est un champ dans Job, pas une entité liée)
         if (!empty($criteria['type'])) {
-            $qb->andWhere('j.type = :type')
+            $queryBuilder->andWhere('j.type = :type')
                 ->setParameter('type', $criteria['type']);
         }
-
-        // Retourne les résultats si des critères ont été ajoutés
-        return $qb->getQuery()->getResult();
+    
+        // Recherche par query (position ou description)
+        if (!empty($criteria['query'])) {
+            $queryBuilder->andWhere('j.position LIKE :query OR j.description LIKE :query')
+                ->setParameter('query', '%' . $criteria['query'] . '%');
+        }
+    
+        // Exécution de la requête et récupération des résultats
+        return $queryBuilder->getQuery()->getResult();
     }
+    
+    
 
 
 

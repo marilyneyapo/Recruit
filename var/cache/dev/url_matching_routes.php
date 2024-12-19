@@ -23,6 +23,7 @@ return [
         '/job' => [[['_route' => 'job.index', '_controller' => 'App\\Controller\\JobController::index'], null, ['GET' => 0], null, true, false, null]],
         '/job/list' => [[['_route' => 'job.list', '_controller' => 'App\\Controller\\JobController::list'], null, ['GET' => 0], null, false, false, null]],
         '/login_check' => [[['_route' => 'app_login_check', '_controller' => 'App\\Controller\\LoginController::loginCheck'], null, null, null, false, false, null]],
+        '/reset-password' => [[['_route' => 'app_reset_password', '_controller' => 'App\\Controller\\LoginController::resetPassword'], null, null, null, false, false, null]],
         '/redirect_after_login' => [[['_route' => 'app_redirect_after_login', '_controller' => 'App\\Controller\\LoginController::redirectAfterLogin'], null, null, null, false, false, null]],
         '/register' => [[['_route' => 'app_register', '_controller' => 'App\\Controller\\RegistrationController::register'], null, null, null, false, false, null]],
         '/user' => [[['_route' => 'app_user', '_controller' => 'App\\Controller\\UserController::index'], null, null, null, false, false, null]],
@@ -62,13 +63,14 @@ return [
                         .'|([^/]++)(*:309)'
                     .')'
                 .')'
+                .'|/admin/candidat/([^/]++)/statut/([^/]++)(*:359)'
                 .'|/job(?'
                     .'|/(?'
-                        .'|([^/]++)(*:338)'
-                        .'|search(*:352)'
+                        .'|([^/]++)(*:386)'
+                        .'|search(*:400)'
                     .')'
-                    .'|list/apply/([^/]++)(*:380)'
-                    .'|s/category/([^/]++)(*:407)'
+                    .'|list/apply/([^/]++)(*:428)'
+                    .'|s/category/([^/]++)(*:455)'
                 .')'
             .')/?$}sDu',
     ],
@@ -85,10 +87,11 @@ return [
         262 => [[['_route' => 'category_questions', '_controller' => 'App\\Controller\\CategoryController::getQuestions'], ['id'], ['GET' => 0], null, false, false, null]],
         293 => [[['_route' => 'app_cv_download', '_controller' => 'App\\Controller\\CvController::downloadCv'], ['id'], null, null, false, true, null]],
         309 => [[['_route' => 'app_cv', '_controller' => 'App\\Controller\\CvController::index'], ['id'], null, null, false, true, null]],
-        338 => [[['_route' => 'job.show', '_controller' => 'App\\Controller\\JobController::show'], ['id'], ['GET' => 0], null, false, true, null]],
-        352 => [[['_route' => 'app_job_search', '_controller' => 'App\\Controller\\JobController::search'], [], null, null, false, false, null]],
-        380 => [[['_route' => 'job.apply', '_controller' => 'App\\Controller\\JobController::apply'], ['id'], ['GET' => 0], null, false, true, null]],
-        407 => [
+        359 => [[['_route' => 'update_statut', '_controller' => 'App\\Controller\\Admin\\AdminController::updateStatut'], ['id', 'statut'], null, null, false, true, null]],
+        386 => [[['_route' => 'job.show', '_controller' => 'App\\Controller\\JobController::show'], ['id'], ['GET' => 0], null, false, true, null]],
+        400 => [[['_route' => 'app_job_search', '_controller' => 'App\\Controller\\JobController::search'], [], null, null, false, false, null]],
+        428 => [[['_route' => 'job.apply', '_controller' => 'App\\Controller\\JobController::apply'], ['id'], ['GET' => 0], null, false, true, null]],
+        455 => [
             [['_route' => 'jobs_by_category', '_controller' => 'App\\Controller\\JobController::listByCategory'], ['category'], null, null, false, true, null],
             [null, null, null, null, false, false, 0],
         ],

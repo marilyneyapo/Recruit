@@ -1,7 +1,13 @@
 
-body{
+html,body{
     background: url(/assets/img/wallpaperflare.jpg) no-repeat;
     background-size: cover;
+    height: 100%;
+    margin: 0;
+}
+html, body {
+    height: 100%;
+    margin: 0;
 }
 .p-border {
     font-size: 70px;
@@ -188,5 +194,20 @@ h1 {
 
 .hide {
     display: none;
+}
+
+/* Container qui occupe toute la hauteur de la fenêtre */
+.page-wrapper {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.container {
+    flex-grow: 1;
+}
+
+footer {
+    margin-top: auto;
 }
 

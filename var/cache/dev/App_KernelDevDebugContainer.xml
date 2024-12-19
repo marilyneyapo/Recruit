@@ -102,7 +102,7 @@
     <parameter key="logo_directory">C:\Users\LENOVO\Documents\Stage\Recruitment/public/uploads/joblogos</parameter>
     <parameter key="locale">en</parameter>
     <parameter key="max_jobs_on_homepage">10</parameter>
-    <parameter key="admin_email">marilyneyapo@stratos-co.com</parameter>
+    <parameter key="admin_email">lorrainemarilyne@gmail.com</parameter>
     <parameter key="event_dispatcher.event_aliases" type="collection">
       <parameter key="Symfony\Component\Console\Event\ConsoleCommandEvent">console.command</parameter>
       <parameter key="Symfony\Component\Console\Event\ConsoleErrorEvent">console.error</parameter>
@@ -133,7 +133,7 @@
     <parameter key="kernel.trusted_hosts" type="collection"/>
     <parameter key="kernel.default_locale">en</parameter>
     <parameter key="kernel.enabled_locales" type="collection"/>
-    <parameter key="kernel.error_controller">error_controller</parameter>
+    <parameter key="kernel.error_controller">App\Controller\ErrorController::showErrorPage</parameter>
     <parameter key="debug.file_link_format">%env(default::SYMFONY_IDE)%</parameter>
     <parameter key="asset.request_context.base_path">null</parameter>
     <parameter key="asset.request_context.secure">null</parameter>
@@ -408,7 +408,9 @@
         <parameter>@WebProfiler/Collector/config.html.twig</parameter>
       </parameter>
     </parameter>
-    <parameter key="console.command.ids" type="collection"/>
+    <parameter key="console.command.ids" type="collection">
+      <parameter>console.command.public_alias.App\Command\App\Command\SendTestEmailCommand</parameter>
+    </parameter>
   </parameters>
   <services>
     <service id="service_container" class="Symfony\Component\DependencyInjection\ContainerInterface" public="true" synthetic="true"/>
@@ -422,6 +424,9 @@
       <argument type="service" id="doctrine.orm.default_entity_manager"/>
       <argument type="service" id="request_stack"/>
     </service>
+    <service id="App\Service\EmailService" class="App\Service\EmailService" autowire="true" autoconfigure="true">
+      <tag name="container.error" message="Cannot autowire service &quot;App\Service\EmailService&quot;: argument &quot;$adminEmail&quot; of method &quot;__construct()&quot; is type-hinted &quot;string&quot;, you should configure its value explicitly."/>
+    </service>
     <service id="App\Service\AdminNotificationService" class="App\Service\AdminNotificationService" autowire="true" autoconfigure="true">
       <argument type="service" id="notifier"/>
       <argument type="service" id="App\Repository\UserRepository"/>
@@ -434,6 +439,22 @@
     <service id="App\Service\candidateAnalysisService" class="App\Service\candidateAnalysisService" autowire="true" autoconfigure="true"/>
     <service id="App\Entity" class="App\Entity" abstract="true">
       <tag name="container.excluded" source="in &quot;config/services.yaml&quot;"/>
+    </service>
+    <service id="App\Command\App\Command\SendTestEmailCommand" class="App\Command\App\Command\SendTestEmailCommand" autowire="true" autoconfigure="true">
+      <tag name="console.command"/>
+      <tag name="container.no_preload"/>
+      <argument type="service" id="mailer.mailer"/>
+    </service>
+    <service id="App\Command\SendTestEmailCommand" class="App\Command\SendTestEmailCommand" autowire="true" autoconfigure="true">
+      <tag name="console.command"/>
+      <tag name="container.no_preload"/>
+      <argument type="service" id="mailer.mailer"/>
+      <call method="setName">
+        <argument>sendTestEmailCommand</argument>
+      </call>
+      <call method="setDescription">
+        <argument>Add a short description for your command</argument>
+      </call>
     </service>
     <service id="App\Controller\Admin\AdminController" class="App\Controller\Admin\AdminController" public="true" autowire="true" autoconfigure="true">
       <tag name="controller.service_arguments"/>
@@ -503,6 +524,13 @@
         <argument type="service" id=".service_locator.QaaoWjx.App\Controller\CvController"/>
       </call>
     </service>
+    <service id="App\Controller\ErrorController" class="App\Controller\ErrorController" public="true" autowire="true" autoconfigure="true">
+      <tag name="controller.service_arguments"/>
+      <tag name="container.service_subscriber"/>
+      <call method="setContainer">
+        <argument type="service" id=".service_locator.QaaoWjx.App\Controller\ErrorController"/>
+      </call>
+    </service>
     <service id="App\Controller\JobController" class="App\Controller\JobController" public="true" autowire="true" autoconfigure="true">
       <tag name="controller.service_arguments"/>
       <tag name="container.service_subscriber"/>
@@ -542,6 +570,12 @@
     <service id="App\DataFixtures\JobFixtures" class="App\DataFixtures\JobFixtures" autowire="true" autoconfigure="true">
       <tag name="doctrine.fixture.orm"/>
     </service>
+    <service id="App\Form\CandidatStatusType" class="App\Form\CandidatStatusType" autowire="true" autoconfigure="true">
+      <tag name="form.type"/>
+    </service>
+    <service id="App\Form\ChangePasswordType" class="App\Form\ChangePasswordType" autowire="true" autoconfigure="true">
+      <tag name="form.type"/>
+    </service>
     <service id="App\Form\CvType" class="App\Form\CvType" autowire="true" autoconfigure="true">
       <tag name="form.type"/>
     </service>
@@ -555,6 +589,9 @@
       <tag name="form.type"/>
     </service>
     <service id="App\Form\RegistrationType" class="App\Form\RegistrationType" autowire="true" autoconfigure="true">
+      <tag name="form.type"/>
+    </service>
+    <service id="App\Form\ResetPasswordType" class="App\Form\ResetPasswordType" autowire="true" autoconfigure="true">
       <tag name="form.type"/>
     </service>
     <service id="App\Form\UserProfileType" class="App\Form\UserProfileType" autowire="true" autoconfigure="true">
@@ -600,9 +637,6 @@
       <argument type="service" id="router.default"/>
     </service>
     <service id="App\Service\CandidateAnalysisService" class="App\Service\CandidateAnalysisService" autowire="true" autoconfigure="true"/>
-    <service id="App\Service\EmailService" class="App\Service\EmailService" autowire="true" autoconfigure="true">
-      <tag name="container.error" message="Cannot autowire service &quot;App\Service\EmailService&quot;: argument &quot;$adminEmail&quot; of method &quot;__construct()&quot; is type-hinted &quot;string&quot;, you should configure its value explicitly."/>
-    </service>
     <service id="argument_metadata_factory" class="Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadataFactory"/>
     <service id="argument_resolver.backed_enum_resolver" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\BackedEnumValueResolver">
       <tag priority="100" name="Symfony\Component\HttpKernel\Controller\ArgumentResolver\BackedEnumValueResolver">controller.argument_value_resolver</tag>
@@ -633,7 +667,7 @@
     </service>
     <service id="argument_resolver.service" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">
       <tag priority="-50" name="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">controller.argument_value_resolver</tag>
-      <argument type="service" id=".service_locator.rikJ3fk"/>
+      <argument type="service" id=".service_locator.D6F3VPL"/>
     </service>
     <service id="argument_resolver.default" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver">
       <tag priority="-100" name="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver">controller.argument_value_resolver</tag>
@@ -671,7 +705,7 @@
     </service>
     <service id="error_controller" class="Symfony\Component\HttpKernel\Controller\ErrorController" public="true">
       <argument type="service" id="http_kernel"/>
-      <argument>error_controller</argument>
+      <argument>App\Controller\ErrorController::showErrorPage</argument>
       <argument type="service" id="error_handler.error_renderer.serializer"/>
     </service>
     <service id="exception_listener" class="Symfony\Component\HttpKernel\EventListener\ErrorListener">
@@ -679,7 +713,7 @@
       <tag name="kernel.event_subscriber"/>
       <tag name="container.hot_path"/>
       <tag name="container.hot_path"/>
-      <argument>error_controller</argument>
+      <argument>App\Controller\ErrorController::showErrorPage</argument>
       <argument type="service" id="monolog.logger.request" on-invalid="null"/>
       <argument>true</argument>
       <argument type="collection"/>
@@ -1579,11 +1613,14 @@
         <argument>Vich\UploaderBundle\Form\Type</argument>
       </argument>
       <argument type="collection">
+        <argument>App\Form\CandidatStatusType</argument>
+        <argument>App\Form\ChangePasswordType</argument>
         <argument>App\Form\CvType</argument>
         <argument>App\Form\JobSearchType</argument>
         <argument>App\Form\JobType</argument>
         <argument>App\Form\LoginType</argument>
         <argument>App\Form\RegistrationType</argument>
+        <argument>App\Form\ResetPasswordType</argument>
         <argument>App\Form\UserProfileType</argument>
         <argument>Symfony\Component\Form\Extension\Core\Type\FormType</argument>
         <argument>Symfony\Component\Form\Extension\Core\Type\ChoiceType</argument>
@@ -3720,7 +3757,7 @@
     </service>
     <service id="argument_resolver.not_tagged_controller" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\NotTaggedControllerValueResolver">
       <tag name="controller.argument_value_resolver" priority="-200"/>
-      <argument type="service" id=".service_locator.rikJ3fk"/>
+      <argument type="service" id=".service_locator.D6F3VPL"/>
     </service>
     <service id="debug.log_processor" class="Symfony\Bridge\Monolog\Processor\DebugProcessor">
       <tag name="kernel.reset" method="reset"/>
@@ -4252,7 +4289,7 @@
       <argument type="service" id="form.registry"/>
     </service>
     <service id="form.extension" class="Symfony\Component\Form\Extension\DependencyInjection\DependencyInjectionExtension">
-      <argument type="service" id=".service_locator.7AQl9PC"/>
+      <argument type="service" id=".service_locator.zLfao9d"/>
       <argument type="collection">
         <argument key="Symfony\Component\Form\Extension\Core\Type\FormType" type="iterator">
           <argument type="service" id="form.type_extension.form.transformation_failure_handling"/>
@@ -4832,7 +4869,6 @@
       <tag name="messenger.receiver" alias="async" is_failure_transport=""/>
       <argument>%env(MESSENGER_TRANSPORT_DSN)%</argument>
       <argument type="collection">
-        <argument key="use_notify">true</argument>
         <argument key="check_delayed_interval">60000</argument>
         <argument key="transport_name">async</argument>
       </argument>
@@ -8581,6 +8617,10 @@
       <tag name="container.service_subscriber" id="ux.twig_component.component_properties"/>
       <argument type="service" id=".service_locator.YQEUM3K.ux.twig_component.cache_warmer"/>
     </service>
+    <service id=".instanceof.Symfony\Component\Console\Command\Command.0.App\Command\App\Command\SendTestEmailCommand" class="App\Command\App\Command\SendTestEmailCommand" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Command\App\Command\SendTestEmailCommand" class="App\Command\App\Command\SendTestEmailCommand" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Component\Console\Command\Command.0.App\Command\SendTestEmailCommand" class="App\Command\SendTestEmailCommand" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Command\SendTestEmailCommand" class="App\Command\SendTestEmailCommand" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\Admin\AdminController" class="App\Controller\Admin\AdminController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\Admin\AdminController" class="App\Controller\Admin\AdminController" autowire="true" abstract="true"/>
     <service id=".instanceof.EasyCorp\Bundle\EasyAdminBundle\Contracts\Controller\DashboardControllerInterface.0.App\Controller\Admin\AdminController" class="App\Controller\Admin\AdminController" autowire="true" abstract="true"/>
@@ -8610,6 +8650,9 @@
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\CvController" class="App\Controller\CvController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\CvController" class="App\Controller\CvController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\CvController" class="App\Controller\CvController" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\ErrorController" class="App\Controller\ErrorController" autowire="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\ErrorController" class="App\Controller\ErrorController" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Controller\ErrorController" class="App\Controller\ErrorController" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\JobController" class="App\Controller\JobController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\JobController" class="App\Controller\JobController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\JobController" class="App\Controller\JobController" autowire="true" autoconfigure="true" abstract="true"/>
@@ -8628,6 +8671,10 @@
     <service id=".abstract.instanceof.App\DataFixtures\CategoryFixtures" class="App\DataFixtures\CategoryFixtures" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\FixturesBundle\ORMFixtureInterface.0.App\DataFixtures\JobFixtures" class="App\DataFixtures\JobFixtures" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\DataFixtures\JobFixtures" class="App\DataFixtures\JobFixtures" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\CandidatStatusType" class="App\Form\CandidatStatusType" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Form\CandidatStatusType" class="App\Form\CandidatStatusType" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\ChangePasswordType" class="App\Form\ChangePasswordType" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Form\ChangePasswordType" class="App\Form\ChangePasswordType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\CvType" class="App\Form\CvType" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Form\CvType" class="App\Form\CvType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\JobSearchType" class="App\Form\JobSearchType" autowire="true" abstract="true"/>
@@ -8638,6 +8685,8 @@
     <service id=".abstract.instanceof.App\Form\LoginType" class="App\Form\LoginType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\RegistrationType" class="App\Form\RegistrationType" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Form\RegistrationType" class="App\Form\RegistrationType" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\ResetPasswordType" class="App\Form\ResetPasswordType" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Form\ResetPasswordType" class="App\Form\ResetPasswordType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\UserProfileType" class="App\Form\UserProfileType" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Form\UserProfileType" class="App\Form\UserProfileType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\AffiliateRepository" class="App\Repository\AffiliateRepository" autowire="true" abstract="true"/>
@@ -9314,6 +9363,20 @@
       <argument type="service" id="service_container"/>
       <factory service=".service_locator.9MTj4fh" method="withContext"/>
     </service>
+    <service id=".service_locator.vSkghii" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="candidat" type="service_closure" id=".errored..service_locator.vSkghii.App\Entity\Candidat"/>
+        <argument key="em" type="service_closure" id="doctrine.orm.default_entity_manager"/>
+        <argument key="context" type="service_closure" id=".errored..service_locator.vSkghii.EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext"/>
+      </argument>
+    </service>
+    <service id=".service_locator.vSkghii.App\Controller\Admin\AdminController::updateStatut()" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator_context" id="App\Controller\Admin\AdminController::updateStatut()"/>
+      <argument>App\Controller\Admin\AdminController::updateStatut()</argument>
+      <argument type="service" id="service_container"/>
+      <factory service=".service_locator.vSkghii" method="withContext"/>
+    </service>
     <service id=".service_locator._1ARgjp" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
@@ -9979,6 +10042,19 @@
       <argument type="service" id="service_container"/>
       <factory service=".service_locator.mXDaS5b" method="withContext"/>
     </service>
+    <service id=".service_locator.r_XOrDH" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="passwordHasher" type="service_closure" id="security.user_password_hasher"/>
+        <argument key="entityManager" type="service_closure" id="doctrine.orm.default_entity_manager"/>
+      </argument>
+    </service>
+    <service id=".service_locator.r_XOrDH.App\Controller\LoginController::resetPassword()" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator_context" id="App\Controller\LoginController::resetPassword()"/>
+      <argument>App\Controller\LoginController::resetPassword()</argument>
+      <argument type="service" id="service_container"/>
+      <factory service=".service_locator.r_XOrDH" method="withContext"/>
+    </service>
     <service id=".service_locator.KETDBEq" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
@@ -10011,7 +10087,7 @@
       <argument type="service" id="service_container"/>
       <factory service=".service_locator.TWxDQA4" method="withContext"/>
     </service>
-    <service id=".service_locator.rikJ3fk" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.D6F3VPL" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="kernel::registerContainerConfiguration" type="service_closure" id=".service_locator.4wc4Ag1.kernel::registerContainerConfiguration()"/>
@@ -10019,6 +10095,7 @@
         <argument key="kernel::loadRoutes" type="service_closure" id=".service_locator.4wc4Ag1.kernel::loadRoutes()"/>
         <argument key="App\Kernel::loadRoutes" type="service_closure" id=".service_locator.4wc4Ag1.kernel::loadRoutes()"/>
         <argument key="App\Controller\Admin\AdminController::viewCandidature" type="service_closure" id=".service_locator.9MTj4fh.App\Controller\Admin\AdminController::viewCandidature()"/>
+        <argument key="App\Controller\Admin\AdminController::updateStatut" type="service_closure" id=".service_locator.vSkghii.App\Controller\Admin\AdminController::updateStatut()"/>
         <argument key="App\Controller\Admin\AdminController::configureUserMenu" type="service_closure" id=".service_locator._1ARgjp.App\Controller\Admin\AdminController::configureUserMenu()"/>
         <argument key="App\Controller\Admin\CategoryCrudController::configureCrud" type="service_closure" id=".service_locator.GLGWHcU.App\Controller\Admin\CategoryCrudController::configureCrud()"/>
         <argument key="App\Controller\Admin\CategoryCrudController::configureAssets" type="service_closure" id=".service_locator.49XXFvZ.App\Controller\Admin\CategoryCrudController::configureAssets()"/>
@@ -10110,12 +10187,14 @@
         <argument key="App\Controller\JobController::apply" type="service_closure" id=".service_locator.dlt9PmK.App\Controller\JobController::apply()"/>
         <argument key="App\Controller\JobController::search" type="service_closure" id=".service_locator.32KeI.R.App\Controller\JobController::search()"/>
         <argument key="App\Controller\LoginController::login" type="service_closure" id=".service_locator.mXDaS5b.App\Controller\LoginController::login()"/>
+        <argument key="App\Controller\LoginController::resetPassword" type="service_closure" id=".service_locator.r_XOrDH.App\Controller\LoginController::resetPassword()"/>
         <argument key="App\Controller\RegistrationController::register" type="service_closure" id=".service_locator.KETDBEq.App\Controller\RegistrationController::register()"/>
         <argument key="App\Controller\UserController::index" type="service_closure" id=".service_locator.TWxDQA4.App\Controller\UserController::index()"/>
         <argument key="App\Controller\UserController::profile" type="service_closure" id=".service_locator.TWxDQA4.App\Controller\UserController::profile()"/>
         <argument key="kernel:registerContainerConfiguration" type="service_closure" id=".service_locator.4wc4Ag1.kernel::registerContainerConfiguration()"/>
         <argument key="kernel:loadRoutes" type="service_closure" id=".service_locator.4wc4Ag1.kernel::loadRoutes()"/>
         <argument key="App\Controller\Admin\AdminController:viewCandidature" type="service_closure" id=".service_locator.9MTj4fh.App\Controller\Admin\AdminController::viewCandidature()"/>
+        <argument key="App\Controller\Admin\AdminController:updateStatut" type="service_closure" id=".service_locator.vSkghii.App\Controller\Admin\AdminController::updateStatut()"/>
         <argument key="App\Controller\Admin\AdminController:configureUserMenu" type="service_closure" id=".service_locator._1ARgjp.App\Controller\Admin\AdminController::configureUserMenu()"/>
         <argument key="App\Controller\Admin\CategoryCrudController:configureCrud" type="service_closure" id=".service_locator.GLGWHcU.App\Controller\Admin\CategoryCrudController::configureCrud()"/>
         <argument key="App\Controller\Admin\CategoryCrudController:configureAssets" type="service_closure" id=".service_locator.49XXFvZ.App\Controller\Admin\CategoryCrudController::configureAssets()"/>
@@ -10207,6 +10286,7 @@
         <argument key="App\Controller\JobController:apply" type="service_closure" id=".service_locator.dlt9PmK.App\Controller\JobController::apply()"/>
         <argument key="App\Controller\JobController:search" type="service_closure" id=".service_locator.32KeI.R.App\Controller\JobController::search()"/>
         <argument key="App\Controller\LoginController:login" type="service_closure" id=".service_locator.mXDaS5b.App\Controller\LoginController::login()"/>
+        <argument key="App\Controller\LoginController:resetPassword" type="service_closure" id=".service_locator.r_XOrDH.App\Controller\LoginController::resetPassword()"/>
         <argument key="App\Controller\RegistrationController:register" type="service_closure" id=".service_locator.KETDBEq.App\Controller\RegistrationController::register()"/>
         <argument key="App\Controller\UserController:index" type="service_closure" id=".service_locator.TWxDQA4.App\Controller\UserController::index()"/>
         <argument key="App\Controller\UserController:profile" type="service_closure" id=".service_locator.TWxDQA4.App\Controller\UserController::profile()"/>
@@ -10381,14 +10461,17 @@
       <argument type="service" id="argument_resolver.query_parameter_value_resolver"/>
       <argument type="service" id="debug.stopwatch"/>
     </service>
-    <service id=".service_locator.7AQl9PC" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.zLfao9d" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
+        <argument key="App\Form\CandidatStatusType" type="service_closure" id="App\Form\CandidatStatusType"/>
+        <argument key="App\Form\ChangePasswordType" type="service_closure" id="App\Form\ChangePasswordType"/>
         <argument key="App\Form\CvType" type="service_closure" id="App\Form\CvType"/>
         <argument key="App\Form\JobSearchType" type="service_closure" id="App\Form\JobSearchType"/>
         <argument key="App\Form\JobType" type="service_closure" id="App\Form\JobType"/>
         <argument key="App\Form\LoginType" type="service_closure" id="App\Form\LoginType"/>
         <argument key="App\Form\RegistrationType" type="service_closure" id="App\Form\RegistrationType"/>
+        <argument key="App\Form\ResetPasswordType" type="service_closure" id="App\Form\ResetPasswordType"/>
         <argument key="App\Form\UserProfileType" type="service_closure" id="App\Form\UserProfileType"/>
         <argument key="Symfony\Component\Form\Extension\Core\Type\FormType" type="service_closure" id="form.type.form"/>
         <argument key="Symfony\Component\Form\Extension\Core\Type\ChoiceType" type="service_closure" id="form.type.choice"/>
@@ -10922,6 +11005,12 @@
       <argument type="service" id="service_container"/>
       <factory service=".service_locator.QaaoWjx" method="withContext"/>
     </service>
+    <service id=".service_locator.QaaoWjx.App\Controller\ErrorController" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator_context" id="App\Controller\ErrorController"/>
+      <argument>App\Controller\ErrorController</argument>
+      <argument type="service" id="service_container"/>
+      <factory service=".service_locator.QaaoWjx" method="withContext"/>
+    </service>
     <service id=".service_locator.QaaoWjx.App\Controller\JobController" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator_context" id="App\Controller\JobController"/>
       <argument>App\Controller\JobController</argument>
@@ -11158,6 +11247,7 @@
           <argument>App\Controller\Admin\UserCrudController</argument>
           <argument>App\Controller\CategoryController</argument>
           <argument>App\Controller\CvController</argument>
+          <argument>App\Controller\ErrorController</argument>
           <argument>App\Controller\JobController</argument>
           <argument>App\Controller\LoginController</argument>
           <argument>App\Controller\RegistrationController</argument>
@@ -11378,6 +11468,12 @@
     <service id=".errored..service_locator.9MTj4fh.App\Entity\Candidat" class="App\Entity\Candidat">
       <tag name="container.error" message="Cannot autowire service &quot;.service_locator.9MTj4fh&quot;: it needs an instance of &quot;App\Entity\Candidat&quot; but this type has been excluded in &quot;config/services.yaml&quot;."/>
     </service>
+    <service id=".errored..service_locator.vSkghii.App\Entity\Candidat" class="App\Entity\Candidat">
+      <tag name="container.error" message="Cannot autowire service &quot;.service_locator.vSkghii&quot;: it needs an instance of &quot;App\Entity\Candidat&quot; but this type has been excluded in &quot;config/services.yaml&quot;."/>
+    </service>
+    <service id=".errored..service_locator.vSkghii.EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext" class="EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext">
+      <tag name="container.error" message="Cannot autowire service &quot;.service_locator.vSkghii&quot;: it references class &quot;EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext&quot; but no such service exists."/>
+    </service>
     <service id=".errored..service_locator._1ARgjp.Symfony\Component\Security\Core\User\UserInterface" class="Symfony\Component\Security\Core\User\UserInterface">
       <tag name="container.error" message="Cannot autowire service &quot;.service_locator._1ARgjp&quot;: it references interface &quot;Symfony\Component\Security\Core\User\UserInterface&quot; but no such service exists. Did you create a class that implements this interface?"/>
     </service>
@@ -11437,6 +11533,13 @@
     </service>
     <service id=".errored..service_locator.dlt9PmK.App\Entity\Job" class="App\Entity\Job">
       <tag name="container.error" message="Cannot autowire service &quot;.service_locator.dlt9PmK&quot;: it needs an instance of &quot;App\Entity\Job&quot; but this type has been excluded in &quot;config/services.yaml&quot;."/>
+    </service>
+    <service id=".App\Command\SendTestEmailCommand.lazy" class="Symfony\Component\Console\Command\LazyCommand">
+      <argument>sendTestEmailCommand</argument>
+      <argument type="collection"/>
+      <argument>Add a short description for your command</argument>
+      <argument>false</argument>
+      <argument type="service_closure" id="App\Command\SendTestEmailCommand"/>
     </service>
     <service id=".console.command.about.lazy" class="Symfony\Component\Console\Command\LazyCommand">
       <argument>about</argument>
@@ -12145,8 +12248,9 @@
     </service>
     <service id="console.command_loader" class="Symfony\Component\Console\CommandLoader\ContainerCommandLoader" public="true">
       <tag name="container.no_preload"/>
-      <argument type="service" id=".service_locator.LYZAiTS"/>
+      <argument type="service" id=".service_locator.N8zK1sw"/>
       <argument type="collection">
+        <argument key="sendTestEmailCommand">App\Command\SendTestEmailCommand</argument>
         <argument key="about">console.command.about</argument>
         <argument key="assets:install">console.command.assets_install</argument>
         <argument key="cache:clear">console.command.cache_clear</argument>
@@ -12272,9 +12376,10 @@
         <argument key="make:webhook">maker.auto_command.make_webhook</argument>
       </argument>
     </service>
-    <service id=".service_locator.LYZAiTS" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.N8zK1sw" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
+        <argument key="App\Command\SendTestEmailCommand" type="service_closure" id=".App\Command\SendTestEmailCommand.lazy"/>
         <argument key="console.command.about" type="service_closure" id=".console.command.about.lazy"/>
         <argument key="console.command.assets_install" type="service_closure" id=".console.command.assets_install.lazy"/>
         <argument key="console.command.cache_clear" type="service_closure" id=".console.command.cache_clear.lazy"/>
@@ -12697,7 +12802,7 @@
     </service>
     <service id="container.env_var_processors_locator" alias=".service_locator.pRu6x_4" public="true"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.rikJ3fk"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.D6F3VPL"/>
     <service id="doctrine.id_generator_locator" alias=".service_locator.BxSdgVt"/>
     <service id="twig.loader" alias="twig.loader.native_filesystem"/>
     <service id="Psr\Log\LoggerInterface $requestLogger" alias="monolog.logger.request"/>
@@ -12743,6 +12848,7 @@
     <service id="doctrine.orm.default_metadata_driver" alias=".doctrine.orm.default_metadata_driver"/>
     <service id=".service_locator.diNoEIK" alias=".service_locator.4wc4Ag1"/>
     <service id=".service_locator.Q_sm.gO" alias=".service_locator.9MTj4fh"/>
+    <service id=".service_locator.rFpKA.U" alias=".service_locator.vSkghii"/>
     <service id=".service_locator.TK4HnZu" alias=".service_locator._1ARgjp"/>
     <service id=".service_locator.3.t_H05" alias=".service_locator.GLGWHcU"/>
     <service id=".service_locator.ZdHHkot" alias=".service_locator.49XXFvZ"/>
@@ -12760,10 +12866,12 @@
     <service id=".service_locator.0LVJUZI" alias=".service_locator.dlt9PmK"/>
     <service id=".service_locator.hKUjIYf" alias=".service_locator.32KeI.R"/>
     <service id=".service_locator...2Ndi3" alias=".service_locator.mXDaS5b"/>
+    <service id=".service_locator.5jQ6XPE" alias=".service_locator.r_XOrDH"/>
     <service id=".service_locator.gNyTM26" alias=".service_locator.KETDBEq"/>
     <service id=".service_locator.CK66ULR" alias=".service_locator.TWxDQA4"/>
     <service id=".service_locator.BCLXmaG" alias=".service_locator.mV6ntiS"/>
     <service id=".service_locator.QbMWOW0" alias=".service_locator.Z7xq1n_"/>
     <service id=".service_locator.b491maD" alias=".service_locator.QaaoWjx"/>
+    <service id="console.command.public_alias.App\Command\App\Command\SendTestEmailCommand" alias="App\Command\App\Command\SendTestEmailCommand" public="true"/>
   </services>
 </container>

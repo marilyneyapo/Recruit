@@ -42,38 +42,36 @@
 {% endblock %}
 
 {% block content %}
-<div class="content">
-    <h2>Tableau de Bord Interactif</h2>
+    <div class="content">
+        <h2>Tableau de Bord Interactif</h2>
 
-    <!-- Ligne de graphiques -->
-    <div class="chart-row">
-        <div class="chart-card">
-            <h4>Courbe d'Évolution des Postulants</h4>
-            <canvas id="lineChart"></canvas>
+        <!-- Ligne de graphiques -->
+        <div class="chart-row">
+            <div class="chart-card">
+                <h4>Courbe d'Évolution des Postulants</h4>
+                <canvas id="lineChart"></canvas>
+            </div>
+            
+
+            <div class="chart-card">
+                <h4>Histogramme des Visites Mensuelles</h4>
+                <canvas id="barChart"></canvas>
+            </div>
         </div>
-        
 
-        <div class="chart-card">
-            <h4>Histogramme des Visites Mensuelles</h4>
-            <canvas id="barChart"></canvas>
+        <!-- Deuxième ligne de graphiques -->
+        <div class="chart-row">
+            <div class="chart-card">
+                <h4>Radar des Compétences Postulants</h4>
+                <canvas id="radarChart"></canvas>
+            </div>
+            <div class="chart-card">
+                <h4>Graphique à Secteurs des Offres par Catégorie</h4>
+                <canvas id="pieChart"></canvas>
+            </div>
         </div>
     </div>
-
-    <!-- Deuxième ligne de graphiques -->
-    <div class="chart-row">
-        <div class="chart-card">
-            <h4>Radar des Compétences Postulants</h4>
-            <canvas id="radarChart"></canvas>
-        </div>
-        <div class="chart-card">
-            <h4>Graphique à Secteurs des Offres par Catégorie</h4>
-            <canvas id="pieChart"></canvas>
-        </div>
-    </div>
-</div>
-{% endblock %}
-
-{% block javascripts %}
+    {% block javascripts %}
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
@@ -159,7 +157,7 @@
             const pieChart = new Chart(document.getElementById('pieChart'), {
                 type: 'pie',
                 data: {
-                    labels: ['Développeur', 'RH', 'Marketing', 'Finance', 'Logistique'],
+                    labels: ['Programming', 'RH', 'Marketing', 'Finance', 'Design'],
                     datasets: [{
                         label: 'Offres',
                         data: [40, 20, 30, 10, 25],
@@ -182,4 +180,7 @@
         });
     </script>
 {% endblock %}
+
+{% endblock %}
+
 

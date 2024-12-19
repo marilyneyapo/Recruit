@@ -31,13 +31,14 @@ class __TwigTemplate_f086918121a236c5f05308c57648035a extends Template
 
         $this->blocks = [
             'content' => [$this, 'block_content'],
+            'javascripts' => [$this, 'block_javascripts'],
         ];
     }
 
     protected function doGetParent(array $context): bool|string|Template|TemplateWrapper
     {
         // line 1
-        return "@EasyAdmin/page/content.html.twig";
+        return "@EasyAdmin/layout.html.twig";
     }
 
     protected function doDisplay(array $context, array $blocks = []): iterable
@@ -49,7 +50,7 @@ class __TwigTemplate_f086918121a236c5f05308c57648035a extends Template
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "template", "admin/notification.html.twig"));
 
-        $this->parent = $this->loadTemplate("@EasyAdmin/page/content.html.twig", "admin/notification.html.twig", 1);
+        $this->parent = $this->loadTemplate("@EasyAdmin/layout.html.twig", "admin/notification.html.twig", 1);
         yield from $this->parent->unwrap()->yield($context, array_merge($this->blocks, $blocks));
         
         $__internal_5a27a8ba21ca79b61932376b2fa922d2->leave($__internal_5a27a8ba21ca79b61932376b2fa922d2_prof);
@@ -74,22 +75,37 @@ class __TwigTemplate_f086918121a236c5f05308c57648035a extends Template
 
         // line 4
         yield "
+    ";
+        // line 5
+        yield from $this->unwrap()->yieldBlock('javascripts', $context, $blocks);
+        // line 22
+        yield "
+
     <div class=\"notification-container\">
         <h1>Boîte de Réception des Candidatures</h1>
 
+        <!-- Bouton Analyser -->
+        <button id=\"analyzeAllButton\" class=\"analyze-button\" onclick=\"showLoadingMessage()\">Analyser les candidatures</button>
+
+        <div id=\"loadingMessage\" class=\"loading-message\" style=\"display:none;\">
+            Fonctionnalité pas encore disponible...
+            <div class=\"spinner\"></div>
+        </div>
+
+
         ";
-        // line 8
-        if ((Twig\Extension\CoreExtension::length($this->env->getCharset(), (isset($context["candidats"]) || array_key_exists("candidats", $context) ? $context["candidats"] : (function () { throw new RuntimeError('Variable "candidats" does not exist.', 8, $this->source); })())) > 0)) {
-            // line 9
+        // line 36
+        if ((Twig\Extension\CoreExtension::length($this->env->getCharset(), (isset($context["candidats"]) || array_key_exists("candidats", $context) ? $context["candidats"] : (function () { throw new RuntimeError('Variable "candidats" does not exist.', 36, $this->source); })())) > 0)) {
+            // line 37
             yield "            <div class=\"notification-list\">
                 ";
-            // line 10
+            // line 38
             $context['_parent'] = $context;
-            $context['_seq'] = CoreExtension::ensureTraversable((isset($context["candidats"]) || array_key_exists("candidats", $context) ? $context["candidats"] : (function () { throw new RuntimeError('Variable "candidats" does not exist.', 10, $this->source); })()));
+            $context['_seq'] = CoreExtension::ensureTraversable((isset($context["candidats"]) || array_key_exists("candidats", $context) ? $context["candidats"] : (function () { throw new RuntimeError('Variable "candidats" does not exist.', 38, $this->source); })()));
             foreach ($context['_seq'] as $context["_key"] => $context["candidat"]) {
-                // line 11
+                // line 39
                 yield "                    <div class=\"notification-item ";
-                if ( !CoreExtension::getAttribute($this->env, $this->source, $context["candidat"], "isRead", [], "any", false, false, false, 11)) {
+                if ( !CoreExtension::getAttribute($this->env, $this->source, $context["candidat"], "isRead", [], "any", false, false, false, 39)) {
                     yield "notification-unread";
                 } else {
                     yield "notification-read";
@@ -98,57 +114,84 @@ class __TwigTemplate_f086918121a236c5f05308c57648035a extends Template
                         <div class=\"notification-header\">
                             <span class=\"sender\">
                                 ";
-                // line 14
-                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["candidat"], "user", [], "any", false, false, false, 14), "firstName", [], "any", false, false, false, 14), "html", null, true);
+                // line 42
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["candidat"], "user", [], "any", false, false, false, 42), "firstName", [], "any", false, false, false, 42), "html", null, true);
                 yield " ";
-                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["candidat"], "user", [], "any", false, false, false, 14), "lastName", [], "any", false, false, false, 14), "html", null, true);
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["candidat"], "user", [], "any", false, false, false, 42), "lastName", [], "any", false, false, false, 42), "html", null, true);
                 yield "
                             </span>
                             <span class=\"timestamp\">
                                 ";
-                // line 17
-                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Twig\Extension\CoreExtension']->formatDate(CoreExtension::getAttribute($this->env, $this->source, $context["candidat"], "createdAt", [], "any", false, false, false, 17), "d/m/Y H:i"), "html", null, true);
+                // line 45
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Twig\Extension\CoreExtension']->formatDate(CoreExtension::getAttribute($this->env, $this->source, $context["candidat"], "createdAt", [], "any", false, false, false, 45), "d/m/Y H:i"), "html", null, true);
                 yield "
                             </span>
                         </div>
                         <div class=\"notification-body\">
                             ";
-                // line 21
-                if (CoreExtension::getAttribute($this->env, $this->source, $context["candidat"], "job", [], "any", false, false, false, 21)) {
-                    // line 22
+                // line 49
+                if (CoreExtension::getAttribute($this->env, $this->source, $context["candidat"], "job", [], "any", false, false, false, 49)) {
+                    // line 50
                     yield "                                    <p>Nouvelle candidature pour le poste : <strong>";
-                    yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["candidat"], "job", [], "any", false, false, false, 22), "position", [], "any", false, false, false, 22), "html", null, true);
+                    yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["candidat"], "job", [], "any", false, false, false, 50), "position", [], "any", false, false, false, 50), "html", null, true);
                     yield "</strong></p>
                                 ";
                 } else {
-                    // line 24
+                    // line 52
                     yield "                                    <p>Nouvelle candidature sans poste associé.</p>
                             ";
                 }
-                // line 25
+                // line 53
                 yield "   
                         </div>
                         <div class=\"notification-actions\">
                             <a href=\"";
-                // line 28
-                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("candidature_details", ["id" => CoreExtension::getAttribute($this->env, $this->source, $context["candidat"], "id", [], "any", false, false, false, 28)]), "html", null, true);
+                // line 56
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("candidature_details", ["id" => CoreExtension::getAttribute($this->env, $this->source, $context["candidat"], "id", [], "any", false, false, false, 56)]), "html", null, true);
                 yield "\" class=\"btn btn-primary\">Voir les détails</a>
                         </div>
+
+                        <div class=\"notification-actions\">
+                            <div class=\"status-dropdown\">
+                                <button class=\"status-toggle\">Statut</button>
+                                <ul class=\"status-options\">
+                                    <li>
+                                        <a href=\"";
+                // line 64
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("update_statut", ["id" => CoreExtension::getAttribute($this->env, $this->source, $context["candidat"], "id", [], "any", false, false, false, 64), "statut" => "en_attente"]), "html", null, true);
+                yield "\">En attente</a>
+                                    </li>
+                                    <li>
+                                        <a href=\"";
+                // line 67
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("update_statut", ["id" => CoreExtension::getAttribute($this->env, $this->source, $context["candidat"], "id", [], "any", false, false, false, 67), "statut" => "acceptee"]), "html", null, true);
+                yield "\">Acceptée</a>
+                                    </li>
+                                    <li>
+                                        <a href=\"";
+                // line 70
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("update_statut", ["id" => CoreExtension::getAttribute($this->env, $this->source, $context["candidat"], "id", [], "any", false, false, false, 70), "statut" => "refusee"]), "html", null, true);
+                yield "\">Refusée</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
                     </div>
                 ";
             }
             $_parent = $context['_parent'];
             unset($context['_seq'], $context['_key'], $context['candidat'], $context['_parent']);
             $context = array_intersect_key($context, $_parent) + $_parent;
-            // line 32
+            // line 78
             yield "            </div>
         ";
         } else {
-            // line 34
+            // line 80
             yield "            <div class=\"alert alert-warning\">Aucune candidature disponible.</div>
         ";
         }
-        // line 36
+        // line 82
         yield "    </div>
 
     <style>
@@ -248,9 +291,141 @@ class __TwigTemplate_f086918121a236c5f05308c57648035a extends Template
         .btn-primary:hover {
             background-color: #0056b3;
         }
+
+        /* Dropdown pour le statut */
+        .status-dropdown {
+            position: relative;
+            display: inline-block;
+            margin-top: 10px;
+        }
+
+        .status-toggle {
+            padding: 8px 12px;
+            font-size: 14px;
+            background-color: #6c757d;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .status-toggle:hover {
+            background-color: #5a6268;
+        }
+
+        .status-options {
+            display: none;
+            position: absolute;
+            top: 40px;
+            left: 0;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            list-style: none;
+            padding: 5px 0;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            z-index: 100;
+        }
+
+        .status-options li {
+            padding: 8px 12px;
+            font-size: 14px;
+            color: #444;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .status-options li:hover {
+            background-color: #f1f1f1;
+        }
+
+        .status-dropdown:hover .status-options {
+            display: block;
+        }
+
+        /* Styles pour le bouton \"Analyser\" */
+        .analyze-button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        .analyze-button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Styles pour le message de chargement */
+        .loading-message {
+            margin-top: 10px;
+            font-size: 16px;
+            color: #999;
+            display: inline-block;
+        }
+
+        /* Animation pour le spinner */
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3498db;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            animation: spin 2s linear infinite;
+            margin-left: 10px;
+        }
+
+        /* Animation de rotation pour le spinner */
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
     </style>
 
 ";
+        
+        $__internal_6f47bbe9983af81f1e7450e9a3e3768f->leave($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof);
+
+        
+        $__internal_5a27a8ba21ca79b61932376b2fa922d2->leave($__internal_5a27a8ba21ca79b61932376b2fa922d2_prof);
+
+        yield from [];
+    }
+
+    // line 5
+    /**
+     * @return iterable<null|scalar|\Stringable>
+     */
+    public function block_javascripts(array $context, array $blocks = []): iterable
+    {
+        $macros = $this->macros;
+        $__internal_5a27a8ba21ca79b61932376b2fa922d2 = $this->extensions["Symfony\\Bundle\\WebProfilerBundle\\Twig\\WebProfilerExtension"];
+        $__internal_5a27a8ba21ca79b61932376b2fa922d2->enter($__internal_5a27a8ba21ca79b61932376b2fa922d2_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "javascripts"));
+
+        $__internal_6f47bbe9983af81f1e7450e9a3e3768f = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
+        $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "javascripts"));
+
+        // line 6
+        yield "        <script>
+            function showLoadingMessage() {
+                console.log('La fonction showLoadingMessage est appelée');
+                
+                // Cacher le bouton \"Analyser\"
+                document.getElementById('analyzeAllButton').style.display = 'none';
+                // Afficher le message de chargement
+                document.getElementById('loadingMessage').style.display = 'block';
+
+                setTimeout(function() {
+                    document.getElementById('loadingMessage').style.display = 'none';
+                }, 1000000);
+            }
+
+        </script>
+    ";
         
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->leave($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof);
 
@@ -281,17 +456,45 @@ class __TwigTemplate_f086918121a236c5f05308c57648035a extends Template
      */
     public function getDebugInfo(): array
     {
-        return array (  152 => 36,  148 => 34,  144 => 32,  134 => 28,  129 => 25,  125 => 24,  119 => 22,  117 => 21,  110 => 17,  102 => 14,  91 => 11,  87 => 10,  84 => 9,  82 => 8,  76 => 4,  63 => 3,  40 => 1,);
+        return array (  413 => 6,  400 => 5,  195 => 82,  191 => 80,  187 => 78,  173 => 70,  167 => 67,  161 => 64,  150 => 56,  145 => 53,  141 => 52,  135 => 50,  133 => 49,  126 => 45,  118 => 42,  107 => 39,  103 => 38,  100 => 37,  98 => 36,  82 => 22,  80 => 5,  77 => 4,  64 => 3,  41 => 1,);
     }
 
     public function getSourceContext(): Source
     {
-        return new Source("{% extends '@EasyAdmin/page/content.html.twig' %}
+        return new Source("{% extends '@EasyAdmin/layout.html.twig' %}
 
 {% block content %}
 
+    {% block javascripts %}
+        <script>
+            function showLoadingMessage() {
+                console.log('La fonction showLoadingMessage est appelée');
+                
+                // Cacher le bouton \"Analyser\"
+                document.getElementById('analyzeAllButton').style.display = 'none';
+                // Afficher le message de chargement
+                document.getElementById('loadingMessage').style.display = 'block';
+
+                setTimeout(function() {
+                    document.getElementById('loadingMessage').style.display = 'none';
+                }, 1000000);
+            }
+
+        </script>
+    {% endblock %}
+
+
     <div class=\"notification-container\">
         <h1>Boîte de Réception des Candidatures</h1>
+
+        <!-- Bouton Analyser -->
+        <button id=\"analyzeAllButton\" class=\"analyze-button\" onclick=\"showLoadingMessage()\">Analyser les candidatures</button>
+
+        <div id=\"loadingMessage\" class=\"loading-message\" style=\"display:none;\">
+            Fonctionnalité pas encore disponible...
+            <div class=\"spinner\"></div>
+        </div>
+
 
         {% if candidats|length > 0 %}
             <div class=\"notification-list\">
@@ -315,6 +518,24 @@ class __TwigTemplate_f086918121a236c5f05308c57648035a extends Template
                         <div class=\"notification-actions\">
                             <a href=\"{{ path('candidature_details', {id: candidat.id}) }}\" class=\"btn btn-primary\">Voir les détails</a>
                         </div>
+
+                        <div class=\"notification-actions\">
+                            <div class=\"status-dropdown\">
+                                <button class=\"status-toggle\">Statut</button>
+                                <ul class=\"status-options\">
+                                    <li>
+                                        <a href=\"{{ path('update_statut', {id: candidat.id, statut: 'en_attente'}) }}\">En attente</a>
+                                    </li>
+                                    <li>
+                                        <a href=\"{{ path('update_statut', {id: candidat.id, statut: 'acceptee'}) }}\">Acceptée</a>
+                                    </li>
+                                    <li>
+                                        <a href=\"{{ path('update_statut', {id: candidat.id, statut: 'refusee'}) }}\">Refusée</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
                     </div>
                 {% endfor %}
             </div>
@@ -420,9 +641,105 @@ class __TwigTemplate_f086918121a236c5f05308c57648035a extends Template
         .btn-primary:hover {
             background-color: #0056b3;
         }
+
+        /* Dropdown pour le statut */
+        .status-dropdown {
+            position: relative;
+            display: inline-block;
+            margin-top: 10px;
+        }
+
+        .status-toggle {
+            padding: 8px 12px;
+            font-size: 14px;
+            background-color: #6c757d;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .status-toggle:hover {
+            background-color: #5a6268;
+        }
+
+        .status-options {
+            display: none;
+            position: absolute;
+            top: 40px;
+            left: 0;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            list-style: none;
+            padding: 5px 0;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            z-index: 100;
+        }
+
+        .status-options li {
+            padding: 8px 12px;
+            font-size: 14px;
+            color: #444;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .status-options li:hover {
+            background-color: #f1f1f1;
+        }
+
+        .status-dropdown:hover .status-options {
+            display: block;
+        }
+
+        /* Styles pour le bouton \"Analyser\" */
+        .analyze-button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        .analyze-button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Styles pour le message de chargement */
+        .loading-message {
+            margin-top: 10px;
+            font-size: 16px;
+            color: #999;
+            display: inline-block;
+        }
+
+        /* Animation pour le spinner */
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3498db;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            animation: spin 2s linear infinite;
+            margin-left: 10px;
+        }
+
+        /* Animation de rotation pour le spinner */
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
     </style>
 
 {% endblock %}
+
+
+
 ", "admin/notification.html.twig", "C:\\Users\\LENOVO\\Documents\\Stage\\Recruitment\\templates\\admin\\notification.html.twig");
     }
 }

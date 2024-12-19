@@ -68,26 +68,6 @@
 
 {% block body %}
     {# Affichage des catégories sous forme de liens pour filtrer les offres #}
-    <div class="category-list">
-        <li class="nav-item dropdown">
-            <!-- Bouton qui déclenche le menu déroulant -->
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <i class="fas fa-briefcase"></i> Jobs
-            </a>
-
-            <!-- Liste déroulante -->
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                {% for category in categories %}
-                    <li>
-                        <!-- Lien vers les offres de chaque catégorie -->
-                        <a href="{{ path('jobs_by_category', { 'category': category.name }) }}" class="dropdown-item">
-                            {{ category.name }}
-                        </a>
-                    </li>
-                {% endfor %}
-            </ul>
-        </li>
-    </div>
 
     {# Affichage des offres par catégorie sélectionnée #}
     {% if selectedCategory %}

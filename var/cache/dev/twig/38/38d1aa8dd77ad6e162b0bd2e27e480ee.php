@@ -292,88 +292,108 @@ class __TwigTemplate_a8c7267ff31aef1f2462cbec935d38a8 extends Template
     <h1>Bienvenue sur StratRecruit</h1> 
     <p>Découvrez nos offres d'emploi et bien plus encore.</p> 
 
-    <form action=\"";
+   <form action=\"";
         // line 198
-        yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_job_search");
+        yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("job.list");
         yield "\" method=\"GET\" class=\"search-bar\">
         <input type=\"text\" name=\"query\" placeholder=\"Rechercher un emploi, une catégorie...\" class=\"search-input\">
+        
         <select name=\"location\" class=\"search-select\">
             <option value=\"\">Sélectionnez une localisation</option>
             ";
-        // line 202
+        // line 203
         $context['_parent'] = $context;
-        $context['_seq'] = CoreExtension::ensureTraversable((isset($context["locations"]) || array_key_exists("locations", $context) ? $context["locations"] : (function () { throw new RuntimeError('Variable "locations" does not exist.', 202, $this->source); })()));
+        $context['_seq'] = CoreExtension::ensureTraversable((isset($context["locations"]) || array_key_exists("locations", $context) ? $context["locations"] : (function () { throw new RuntimeError('Variable "locations" does not exist.', 203, $this->source); })()));
         foreach ($context['_seq'] as $context["_key"] => $context["location"]) {
-            // line 203
+            // line 204
             yield "                <option value=\"";
             yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($context["location"], "html", null, true);
-            yield "\">";
+            yield "\" ";
+            if (($context["location"] == CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 204, $this->source); })()), "request", [], "any", false, false, false, 204), "query", [], "any", false, false, false, 204), "get", ["location"], "method", false, false, false, 204))) {
+                yield "selected";
+            }
+            yield ">
+                    ";
+            // line 205
             yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($context["location"], "html", null, true);
-            yield "</option>
+            yield "
+                </option>
             ";
         }
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_key'], $context['location'], $context['_parent']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 205
+        // line 208
         yield "        </select>
+        
         <select name=\"type\" class=\"search-select\">
             <option value=\"\">Sélectionnez un type d'emploi</option>
             ";
-        // line 208
+        // line 212
         $context['_parent'] = $context;
-        $context['_seq'] = CoreExtension::ensureTraversable((isset($context["types"]) || array_key_exists("types", $context) ? $context["types"] : (function () { throw new RuntimeError('Variable "types" does not exist.', 208, $this->source); })()));
+        $context['_seq'] = CoreExtension::ensureTraversable((isset($context["types"]) || array_key_exists("types", $context) ? $context["types"] : (function () { throw new RuntimeError('Variable "types" does not exist.', 212, $this->source); })()));
         foreach ($context['_seq'] as $context["_key"] => $context["type"]) {
-            // line 209
+            // line 213
             yield "                <option value=\"";
             yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($context["type"], "html", null, true);
-            yield "\">";
+            yield "\" ";
+            if (($context["type"] == CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 213, $this->source); })()), "request", [], "any", false, false, false, 213), "query", [], "any", false, false, false, 213), "get", ["type"], "method", false, false, false, 213))) {
+                yield "selected";
+            }
+            yield ">
+                    ";
+            // line 214
             yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($context["type"], "html", null, true);
-            yield "</option>
+            yield "
+                </option>
             ";
         }
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_key'], $context['type'], $context['_parent']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 211
+        // line 217
         yield "        </select>
+
         <button type=\"submit\" class=\"search-button\">Rechercher</button>
     </form>
+
     
     ";
-        // line 215
-        if ( !Twig\Extension\CoreExtension::testEmpty((isset($context["jobs"]) || array_key_exists("jobs", $context) ? $context["jobs"] : (function () { throw new RuntimeError('Variable "jobs" does not exist.', 215, $this->source); })()))) {
-            // line 216
-            yield "        <h2>Résultats de recherche</h2>
-        <ul>
-        ";
-            // line 218
+        // line 223
+        if ( !Twig\Extension\CoreExtension::testEmpty((isset($context["jobs"]) || array_key_exists("jobs", $context) ? $context["jobs"] : (function () { throw new RuntimeError('Variable "jobs" does not exist.', 223, $this->source); })()))) {
+            // line 224
+            yield "        <ul>
+            ";
+            // line 225
             $context['_parent'] = $context;
-            $context['_seq'] = CoreExtension::ensureTraversable((isset($context["jobs"]) || array_key_exists("jobs", $context) ? $context["jobs"] : (function () { throw new RuntimeError('Variable "jobs" does not exist.', 218, $this->source); })()));
+            $context['_seq'] = CoreExtension::ensureTraversable((isset($context["jobs"]) || array_key_exists("jobs", $context) ? $context["jobs"] : (function () { throw new RuntimeError('Variable "jobs" does not exist.', 225, $this->source); })()));
             foreach ($context['_seq'] as $context["_key"] => $context["job"]) {
-                // line 219
-                yield "            <li>
-                <a href=\"";
-                // line 220
-                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("job.show", ["id" => CoreExtension::getAttribute($this->env, $this->source, $context["job"], "id", [], "any", false, false, false, 220)]), "html", null, true);
+                // line 226
+                yield "                <li>
+                    <a href=\"";
+                // line 227
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("job.show", ["id" => CoreExtension::getAttribute($this->env, $this->source, $context["job"], "id", [], "any", false, false, false, 227)]), "html", null, true);
                 yield "\">";
-                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["job"], "position", [], "any", false, false, false, 220), "html", null, true);
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["job"], "position", [], "any", false, false, false, 227), "html", null, true);
                 yield "</a>
-            </li>
-        ";
+                    - ";
+                // line 228
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["job"], "company", [], "any", false, false, false, 228), "html", null, true);
+                yield " (";
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["job"], "location", [], "any", false, false, false, 228), "html", null, true);
+                yield ")
+                </li>
+            ";
             }
             $_parent = $context['_parent'];
             unset($context['_seq'], $context['_key'], $context['job'], $context['_parent']);
             $context = array_intersect_key($context, $_parent) + $_parent;
-            // line 223
+            // line 231
             yield "        </ul>
-    ";
-        } else {
-            // line 225
-            yield "        <p>Aucun résultat trouvé.</p>
+        
     ";
         }
-        // line 227
+        // line 234
         yield "
     <div class=\"category-list\"> 
         <li class=\"nav-item dropdown\"> 
@@ -383,19 +403,19 @@ class __TwigTemplate_a8c7267ff31aef1f2462cbec935d38a8 extends Template
 
             <ul class=\"dropdown-menu\" aria-labelledby=\"navbarDropdown\"> 
                 ";
-        // line 235
+        // line 242
         $context['_parent'] = $context;
-        $context['_seq'] = CoreExtension::ensureTraversable((isset($context["categories"]) || array_key_exists("categories", $context) ? $context["categories"] : (function () { throw new RuntimeError('Variable "categories" does not exist.', 235, $this->source); })()));
+        $context['_seq'] = CoreExtension::ensureTraversable((isset($context["categories"]) || array_key_exists("categories", $context) ? $context["categories"] : (function () { throw new RuntimeError('Variable "categories" does not exist.', 242, $this->source); })()));
         foreach ($context['_seq'] as $context["_key"] => $context["category"]) {
             yield " 
                 <li> 
                     <a href=\"";
-            // line 237
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("jobs_by_category", ["category" => CoreExtension::getAttribute($this->env, $this->source, $context["category"], "name", [], "any", false, false, false, 237)]), "html", null, true);
+            // line 244
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("jobs_by_category", ["category" => CoreExtension::getAttribute($this->env, $this->source, $context["category"], "name", [], "any", false, false, false, 244)]), "html", null, true);
             yield "\" class=\"dropdown-item\"> 
                         ";
-            // line 238
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["category"], "name", [], "any", false, false, false, 238), "html", null, true);
+            // line 245
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["category"], "name", [], "any", false, false, false, 245), "html", null, true);
             yield " 
                     </a> 
                 </li> 
@@ -404,7 +424,7 @@ class __TwigTemplate_a8c7267ff31aef1f2462cbec935d38a8 extends Template
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_key'], $context['category'], $context['_parent']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 241
+        // line 248
         yield " 
             </ul> 
         </li> 
@@ -457,7 +477,7 @@ class __TwigTemplate_a8c7267ff31aef1f2462cbec935d38a8 extends Template
      */
     public function getDebugInfo(): array
     {
-        return array (  408 => 241,  398 => 238,  394 => 237,  387 => 235,  377 => 227,  373 => 225,  369 => 223,  358 => 220,  355 => 219,  351 => 218,  347 => 216,  345 => 215,  339 => 211,  328 => 209,  324 => 208,  319 => 205,  308 => 203,  304 => 202,  297 => 198,  278 => 193,  84 => 9,  77 => 4,  64 => 3,  41 => 1,);
+        return array (  428 => 248,  418 => 245,  414 => 244,  407 => 242,  397 => 234,  392 => 231,  381 => 228,  375 => 227,  372 => 226,  368 => 225,  365 => 224,  363 => 223,  355 => 217,  346 => 214,  337 => 213,  333 => 212,  327 => 208,  318 => 205,  309 => 204,  305 => 203,  297 => 198,  278 => 193,  84 => 9,  77 => 4,  64 => 3,  41 => 1,);
     }
 
     public function getSourceContext(): Source
@@ -659,34 +679,41 @@ class __TwigTemplate_a8c7267ff31aef1f2462cbec935d38a8 extends Template
     <h1>Bienvenue sur StratRecruit</h1> 
     <p>Découvrez nos offres d'emploi et bien plus encore.</p> 
 
-    <form action=\"{{ path('app_job_search') }}\" method=\"GET\" class=\"search-bar\">
+   <form action=\"{{ path('job.list') }}\" method=\"GET\" class=\"search-bar\">
         <input type=\"text\" name=\"query\" placeholder=\"Rechercher un emploi, une catégorie...\" class=\"search-input\">
+        
         <select name=\"location\" class=\"search-select\">
             <option value=\"\">Sélectionnez une localisation</option>
             {% for location in locations %}
-                <option value=\"{{ location }}\">{{ location }}</option>
+                <option value=\"{{ location }}\" {% if location == app.request.query.get('location') %}selected{% endif %}>
+                    {{ location }}
+                </option>
             {% endfor %}
         </select>
+        
         <select name=\"type\" class=\"search-select\">
             <option value=\"\">Sélectionnez un type d'emploi</option>
             {% for type in types %}
-                <option value=\"{{ type }}\">{{ type }}</option>
+                <option value=\"{{ type }}\" {% if type == app.request.query.get('type') %}selected{% endif %}>
+                    {{ type }}
+                </option>
             {% endfor %}
         </select>
+
         <button type=\"submit\" class=\"search-button\">Rechercher</button>
     </form>
+
     
     {% if jobs is not empty %}
-        <h2>Résultats de recherche</h2>
         <ul>
-        {% for job in jobs %}
-            <li>
-                <a href=\"{{ path('job.show', { 'id': job.id }) }}\">{{ job.position }}</a>
-            </li>
-        {% endfor %}
+            {% for job in jobs %}
+                <li>
+                    <a href=\"{{ path('job.show', { 'id': job.id }) }}\">{{ job.position }}</a>
+                    - {{ job.company }} ({{ job.location }})
+                </li>
+            {% endfor %}
         </ul>
-    {% else %}
-        <p>Aucun résultat trouvé.</p>
+        
     {% endif %}
 
     <div class=\"category-list\"> 

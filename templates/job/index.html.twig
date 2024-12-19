@@ -195,34 +195,41 @@
     <h1>Bienvenue sur StratRecruit</h1> 
     <p>Découvrez nos offres d'emploi et bien plus encore.</p> 
 
-    <form action="{{ path('app_job_search') }}" method="GET" class="search-bar">
+   <form action="{{ path('job.list') }}" method="GET" class="search-bar">
         <input type="text" name="query" placeholder="Rechercher un emploi, une catégorie..." class="search-input">
+        
         <select name="location" class="search-select">
             <option value="">Sélectionnez une localisation</option>
             {% for location in locations %}
-                <option value="{{ location }}">{{ location }}</option>
+                <option value="{{ location }}" {% if location == app.request.query.get('location') %}selected{% endif %}>
+                    {{ location }}
+                </option>
             {% endfor %}
         </select>
+        
         <select name="type" class="search-select">
             <option value="">Sélectionnez un type d'emploi</option>
             {% for type in types %}
-                <option value="{{ type }}">{{ type }}</option>
+                <option value="{{ type }}" {% if type == app.request.query.get('type') %}selected{% endif %}>
+                    {{ type }}
+                </option>
             {% endfor %}
         </select>
+
         <button type="submit" class="search-button">Rechercher</button>
     </form>
+
     
     {% if jobs is not empty %}
-        <h2>Résultats de recherche</h2>
         <ul>
-        {% for job in jobs %}
-            <li>
-                <a href="{{ path('job.show', { 'id': job.id }) }}">{{ job.position }}</a>
-            </li>
-        {% endfor %}
+            {% for job in jobs %}
+                <li>
+                    <a href="{{ path('job.show', { 'id': job.id }) }}">{{ job.position }}</a>
+                    - {{ job.company }} ({{ job.location }})
+                </li>
+            {% endfor %}
         </ul>
-    {% else %}
-        <p>Aucun résultat trouvé.</p>
+        
     {% endif %}
 
     <div class="category-list"> 
@@ -246,7 +253,7 @@
 
 <div class="feature-section"> 
     <h2>Pourquoi choisir StratRecruit?</h2> 
-    <p>Nous offrons une plateforme innovante pour vous aider à trouver le meilleur talent pour votre entreprise ou à découvrir votre prochain emploi de rêve. Avec des outils de recherche avancés et une interface utilisateur intuitive, nous rendons le processus de recrutement plus simple et plus efficace.</p> 
+    <p>Nous offrons une plateforme innovante pour vous aider à trouver le meilleur talent et  vous aider à découvrir votre prochain emploi de rêve. Avec des outils de recherche avancés et une interface utilisateur intuitive, nous rendons le processus de recrutement plus simple et plus efficace.</p> 
 </div> 
 
 <script>

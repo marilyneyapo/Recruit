@@ -17,6 +17,8 @@ use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ORM\EntityManagerInterface;
+use EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext;
+
 
 class AdminController extends AbstractDashboardController
 {
@@ -60,9 +62,11 @@ class AdminController extends AbstractDashboardController
     {
         // Récupérer les notifications
         $notifications = $this->adminNotificationService->getNotifications();
+        $isEasyAdmin = true; 
         
         return $this->render('admin/notification.html.twig', [
             'notifications' => $notifications,
+            'layout' => '@EasyAdmin/page/content.html.twig', 
         ]);
     }
 
@@ -93,6 +97,26 @@ class AdminController extends AbstractDashboardController
         ]);
     }
     
+
+    #[Route('/admin/candidat/{id}/statut/{statut}', name: 'update_statut')]
+    public function updateStatut(Candidat $candidat, string $statut, EntityManagerInterface $em, AdminContext $context): Response
+    {
+        // Mise à jour du statut du candidat
+        $candidat->setStatus($statut);
+
+        // Persistance et sauvegarde dans la base de données
+        $em->persist($candidat);
+        $em->flush();
+
+        // Message de confirmation pour l'utilisateur
+        $this->addFlash('success', 'Le statut a été mis à jour avec succès.');
+
+        // Vérification du contexte pour déterminer si on est dans EasyAdmin
+
+        // Redirection vers la page des notifications administrateur
+        return $this->redirectToRoute('admin_dashboard');
+    }
+
     
 
 

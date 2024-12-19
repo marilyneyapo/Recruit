@@ -31,6 +31,8 @@ class __TwigTemplate_2d4ffe5031d68e96c0bb3c402ebf5274 extends Template
 
         $this->blocks = [
             'body' => [$this, 'block_body'],
+            'javascripts' => [$this, 'block_javascripts'],
+            'stylesheets' => [$this, 'block_stylesheets'],
         ];
     }
 
@@ -80,80 +82,17 @@ class __TwigTemplate_2d4ffe5031d68e96c0bb3c402ebf5274 extends Template
         yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape((isset($context["newCandidaturesCount"]) || array_key_exists("newCandidaturesCount", $context) ? $context["newCandidaturesCount"] : (function () { throw new RuntimeError('Variable "newCandidaturesCount" does not exist.', 6, $this->source); })()), "html", null, true);
         yield ")</h2>
 
-    ";
-        // line 8
-        $context['_parent'] = $context;
-        $context['_seq'] = CoreExtension::ensureTraversable((isset($context["candidatures"]) || array_key_exists("candidatures", $context) ? $context["candidatures"] : (function () { throw new RuntimeError('Variable "candidatures" does not exist.', 8, $this->source); })()));
-        foreach ($context['_seq'] as $context["_key"] => $context["candidature"]) {
-            // line 9
-            yield "        <h3>Candidature de ";
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["candidature"], "user", [], "any", false, false, false, 9), "firstName", [], "any", false, false, false, 9), "html", null, true);
-            yield " ";
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["candidature"], "user", [], "any", false, false, false, 9), "lastName", [], "any", false, false, false, 9), "html", null, true);
-            yield "</h3>
+    <!-- Bouton Analyser pour toutes les candidatures -->
+    <button id=\"analyzeAllButton\" class=\"analyze-button\" onclick=\"showLoadingMessage()\">
+        Analyser toutes les candidatures
+    </button>
 
-        <ul>
-            ";
-            // line 12
-            $context['_parent'] = $context;
-            $context['_seq'] = CoreExtension::ensureTraversable((isset($context["notifications"]) || array_key_exists("notifications", $context) ? $context["notifications"] : (function () { throw new RuntimeError('Variable "notifications" does not exist.', 12, $this->source); })()));
-            foreach ($context['_seq'] as $context["_key"] => $context["notification"]) {
-                // line 13
-                yield "                <li>";
-                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($context["notification"], "html", null, true);
-                yield "</li>
-            ";
-            }
-            $_parent = $context['_parent'];
-            unset($context['_seq'], $context['_key'], $context['notification'], $context['_parent']);
-            $context = array_intersect_key($context, $_parent) + $_parent;
-            // line 15
-            yield "        </ul>
+    <!-- Message de chargement global -->
+    <div id=\"loadingMessage\" class=\"loading-message\" style=\"display:none;\">
+        Fonctionnalité pas encore disponible...
+        <div class=\"spinner\"></div>
+    </div>
 
-        <h4>Questions et Réponses</h4>
-        <ul>
-            ";
-            // line 19
-            $context['_parent'] = $context;
-            $context['_seq'] = CoreExtension::ensureTraversable(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["candidature"], "user", [], "any", false, false, false, 19), "answers", [], "any", false, false, false, 19));
-            foreach ($context['_seq'] as $context["_key"] => $context["answer"]) {
-                // line 20
-                yield "                <li>
-                    <strong>";
-                // line 21
-                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["answer"], "question", [], "any", false, false, false, 21), "text", [], "any", false, false, false, 21), "html", null, true);
-                yield ":</strong>
-                    ";
-                // line 22
-                if ((CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["answer"], "question", [], "any", false, false, false, 22), "type", [], "any", false, false, false, 22) == "text")) {
-                    // line 23
-                    yield "                        ";
-                    yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["answer"], "answerText", [], "any", false, false, false, 23), "html", null, true);
-                    yield "
-                    ";
-                } else {
-                    // line 25
-                    yield "                        ";
-                    yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["answer"], "answerOptions", [], "any", false, false, false, 25), "html", null, true);
-                    yield "
-                    ";
-                }
-                // line 27
-                yield "                </li>
-            ";
-            }
-            $_parent = $context['_parent'];
-            unset($context['_seq'], $context['_key'], $context['answer'], $context['_parent']);
-            $context = array_intersect_key($context, $_parent) + $_parent;
-            // line 29
-            yield "        </ul>
-    ";
-        }
-        $_parent = $context['_parent'];
-        unset($context['_seq'], $context['_key'], $context['candidature'], $context['_parent']);
-        $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 31
-        yield "
     <h2>Candidatures</h2>
     <table>
         <thead>
@@ -167,66 +106,66 @@ class __TwigTemplate_2d4ffe5031d68e96c0bb3c402ebf5274 extends Template
         </thead>
         <tbody>
             ";
-        // line 44
+        // line 31
         $context['_parent'] = $context;
-        $context['_seq'] = CoreExtension::ensureTraversable((isset($context["candidatures"]) || array_key_exists("candidatures", $context) ? $context["candidatures"] : (function () { throw new RuntimeError('Variable "candidatures" does not exist.', 44, $this->source); })()));
+        $context['_seq'] = CoreExtension::ensureTraversable((isset($context["candidatures"]) || array_key_exists("candidatures", $context) ? $context["candidatures"] : (function () { throw new RuntimeError('Variable "candidatures" does not exist.', 31, $this->source); })()));
         foreach ($context['_seq'] as $context["_key"] => $context["candidature"]) {
-            // line 45
+            // line 32
             yield "                <tr>
                     <td>";
-            // line 46
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["candidature"], "user", [], "any", false, false, false, 46), "lastName", [], "any", false, false, false, 46), "html", null, true);
+            // line 33
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["candidature"], "user", [], "any", false, false, false, 33), "lastName", [], "any", false, false, false, 33), "html", null, true);
             yield "</td>
                     <td>";
-            // line 47
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["candidature"], "user", [], "any", false, false, false, 47), "firstName", [], "any", false, false, false, 47), "html", null, true);
+            // line 34
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["candidature"], "user", [], "any", false, false, false, 34), "firstName", [], "any", false, false, false, 34), "html", null, true);
             yield "</td>
                     <td>";
-            // line 48
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["candidature"], "user", [], "any", false, false, false, 48), "email", [], "any", false, false, false, 48), "html", null, true);
+            // line 35
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["candidature"], "user", [], "any", false, false, false, 35), "email", [], "any", false, false, false, 35), "html", null, true);
             yield "</td>
                     <td>
                         <a href=\"";
-            // line 50
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_cv_download", ["id" => CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["candidature"], "cv", [], "any", false, false, false, 50), "id", [], "any", false, false, false, 50)]), "html", null, true);
+            // line 37
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_cv_download", ["id" => CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["candidature"], "cv", [], "any", false, false, false, 37), "id", [], "any", false, false, false, 37)]), "html", null, true);
             yield "\">Télécharger CV</a>
                     </td>
                     <td>
                         <ul>
                             ";
-            // line 54
+            // line 41
             $context['_parent'] = $context;
-            $context['_seq'] = CoreExtension::ensureTraversable(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["candidature"], "user", [], "any", false, false, false, 54), "answers", [], "any", false, false, false, 54));
+            $context['_seq'] = CoreExtension::ensureTraversable(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["candidature"], "user", [], "any", false, false, false, 41), "answers", [], "any", false, false, false, 41));
             foreach ($context['_seq'] as $context["_key"] => $context["answer"]) {
-                // line 55
+                // line 42
                 yield "                                <li>
                                     <strong>";
-                // line 56
-                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["answer"], "question", [], "any", false, false, false, 56), "text", [], "any", false, false, false, 56), "html", null, true);
+                // line 43
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["answer"], "question", [], "any", false, false, false, 43), "text", [], "any", false, false, false, 43), "html", null, true);
                 yield ":</strong>
                                     ";
-                // line 57
-                if ((CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["answer"], "question", [], "any", false, false, false, 57), "type", [], "any", false, false, false, 57) == "text")) {
-                    // line 58
+                // line 44
+                if ((CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["answer"], "question", [], "any", false, false, false, 44), "type", [], "any", false, false, false, 44) == "text")) {
+                    // line 45
                     yield "                                        ";
-                    yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["answer"], "answerText", [], "any", false, false, false, 58), "html", null, true);
+                    yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["answer"], "answerText", [], "any", false, false, false, 45), "html", null, true);
                     yield "
                                     ";
                 } else {
-                    // line 60
+                    // line 47
                     yield "                                        ";
-                    yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["answer"], "answerOptions", [], "any", false, false, false, 60), "html", null, true);
+                    yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["answer"], "answerOptions", [], "any", false, false, false, 47), "html", null, true);
                     yield "
                                     ";
                 }
-                // line 62
+                // line 49
                 yield "                                </li>
                             ";
             }
             $_parent = $context['_parent'];
             unset($context['_seq'], $context['_key'], $context['answer'], $context['_parent']);
             $context = array_intersect_key($context, $_parent) + $_parent;
-            // line 64
+            // line 51
             yield "                        </ul>
                     </td>
                 </tr>
@@ -235,9 +174,106 @@ class __TwigTemplate_2d4ffe5031d68e96c0bb3c402ebf5274 extends Template
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_key'], $context['candidature'], $context['_parent']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 68
+        // line 55
         yield "        </tbody>
     </table>
+";
+        
+        $__internal_6f47bbe9983af81f1e7450e9a3e3768f->leave($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof);
+
+        
+        $__internal_5a27a8ba21ca79b61932376b2fa922d2->leave($__internal_5a27a8ba21ca79b61932376b2fa922d2_prof);
+
+        yield from [];
+    }
+
+    // line 59
+    /**
+     * @return iterable<null|scalar|\Stringable>
+     */
+    public function block_javascripts(array $context, array $blocks = []): iterable
+    {
+        $macros = $this->macros;
+        $__internal_5a27a8ba21ca79b61932376b2fa922d2 = $this->extensions["Symfony\\Bundle\\WebProfilerBundle\\Twig\\WebProfilerExtension"];
+        $__internal_5a27a8ba21ca79b61932376b2fa922d2->enter($__internal_5a27a8ba21ca79b61932376b2fa922d2_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "javascripts"));
+
+        $__internal_6f47bbe9983af81f1e7450e9a3e3768f = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
+        $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "javascripts"));
+
+        // line 60
+        yield "    <script>
+        // Fonction pour afficher le message de chargement et cacher le bouton \"Analyser\"
+        function showLoadingMessage() {
+            // Cacher le bouton \"Analyser\"
+            document.getElementById('analyzeAllButton').style.display = 'none';
+            // Afficher le message de chargement
+            document.getElementById('loadingMessage').style.display = 'block';
+        }
+    </script>
+";
+        
+        $__internal_6f47bbe9983af81f1e7450e9a3e3768f->leave($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof);
+
+        
+        $__internal_5a27a8ba21ca79b61932376b2fa922d2->leave($__internal_5a27a8ba21ca79b61932376b2fa922d2_prof);
+
+        yield from [];
+    }
+
+    // line 71
+    /**
+     * @return iterable<null|scalar|\Stringable>
+     */
+    public function block_stylesheets(array $context, array $blocks = []): iterable
+    {
+        $macros = $this->macros;
+        $__internal_5a27a8ba21ca79b61932376b2fa922d2 = $this->extensions["Symfony\\Bundle\\WebProfilerBundle\\Twig\\WebProfilerExtension"];
+        $__internal_5a27a8ba21ca79b61932376b2fa922d2->enter($__internal_5a27a8ba21ca79b61932376b2fa922d2_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "stylesheets"));
+
+        $__internal_6f47bbe9983af81f1e7450e9a3e3768f = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
+        $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "stylesheets"));
+
+        // line 72
+        yield "    <style>
+        /* Styles pour le bouton \"Analyser\" */
+        .analyze-button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .analyze-button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Styles pour le message de chargement */
+        .loading-message {
+            margin-top: 10px;
+            font-size: 16px;
+            color: #999;
+            display: inline-block;
+        }
+
+        /* Animation pour le spinner */
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3498db;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            animation: spin 2s linear infinite;
+            margin-left: 10px;
+        }
+
+        /* Animation de rotation pour le spinner */
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
 ";
         
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->leave($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof);
@@ -269,7 +305,7 @@ class __TwigTemplate_2d4ffe5031d68e96c0bb3c402ebf5274 extends Template
      */
     public function getDebugInfo(): array
     {
-        return array (  239 => 68,  230 => 64,  223 => 62,  217 => 60,  211 => 58,  209 => 57,  205 => 56,  202 => 55,  198 => 54,  191 => 50,  186 => 48,  182 => 47,  178 => 46,  175 => 45,  171 => 44,  156 => 31,  149 => 29,  142 => 27,  136 => 25,  130 => 23,  128 => 22,  124 => 21,  121 => 20,  117 => 19,  111 => 15,  102 => 13,  98 => 12,  89 => 9,  85 => 8,  80 => 6,  76 => 4,  63 => 3,  40 => 1,);
+        return array (  237 => 72,  224 => 71,  204 => 60,  191 => 59,  178 => 55,  169 => 51,  162 => 49,  156 => 47,  150 => 45,  148 => 44,  144 => 43,  141 => 42,  137 => 41,  130 => 37,  125 => 35,  121 => 34,  117 => 33,  114 => 32,  110 => 31,  82 => 6,  78 => 4,  65 => 3,  42 => 1,);
     }
 
     public function getSourceContext(): Source
@@ -281,29 +317,16 @@ class __TwigTemplate_2d4ffe5031d68e96c0bb3c402ebf5274 extends Template
 
     <h2>Nouvelles Candidatures ({{ newCandidaturesCount }})</h2>
 
-    {% for candidature in candidatures %}
-        <h3>Candidature de {{ candidature.user.firstName }} {{ candidature.user.lastName }}</h3>
+    <!-- Bouton Analyser pour toutes les candidatures -->
+    <button id=\"analyzeAllButton\" class=\"analyze-button\" onclick=\"showLoadingMessage()\">
+        Analyser toutes les candidatures
+    </button>
 
-        <ul>
-            {% for notification in notifications %}
-                <li>{{ notification }}</li>
-            {% endfor %}
-        </ul>
-
-        <h4>Questions et Réponses</h4>
-        <ul>
-            {% for answer in candidature.user.answers %}
-                <li>
-                    <strong>{{ answer.question.text }}:</strong>
-                    {% if answer.question.type == 'text' %}
-                        {{ answer.answerText }}
-                    {% else %}
-                        {{ answer.answerOptions }}
-                    {% endif %}
-                </li>
-            {% endfor %}
-        </ul>
-    {% endfor %}
+    <!-- Message de chargement global -->
+    <div id=\"loadingMessage\" class=\"loading-message\" style=\"display:none;\">
+        Fonctionnalité pas encore disponible...
+        <div class=\"spinner\"></div>
+    </div>
 
     <h2>Candidatures</h2>
     <table>
@@ -343,6 +366,61 @@ class __TwigTemplate_2d4ffe5031d68e96c0bb3c402ebf5274 extends Template
             {% endfor %}
         </tbody>
     </table>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        // Fonction pour afficher le message de chargement et cacher le bouton \"Analyser\"
+        function showLoadingMessage() {
+            // Cacher le bouton \"Analyser\"
+            document.getElementById('analyzeAllButton').style.display = 'none';
+            // Afficher le message de chargement
+            document.getElementById('loadingMessage').style.display = 'block';
+        }
+    </script>
+{% endblock %}
+
+{% block stylesheets %}
+    <style>
+        /* Styles pour le bouton \"Analyser\" */
+        .analyze-button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .analyze-button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Styles pour le message de chargement */
+        .loading-message {
+            margin-top: 10px;
+            font-size: 16px;
+            color: #999;
+            display: inline-block;
+        }
+
+        /* Animation pour le spinner */
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3498db;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            animation: spin 2s linear infinite;
+            margin-left: 10px;
+        }
+
+        /* Animation de rotation pour le spinner */
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
 {% endblock %}
 ", "notifications/index.html.twig", "C:\\Users\\LENOVO\\Documents\\Stage\\Recruitment\\templates\\notifications\\index.html.twig");
     }

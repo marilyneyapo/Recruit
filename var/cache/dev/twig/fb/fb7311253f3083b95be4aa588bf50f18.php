@@ -44,24 +44,27 @@ class __TwigTemplate_5578a68b488db0e16c02329579750e6c extends Template
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "template", "@EasyAdmin/crud/filters.html.twig"));
 
-        // line 3
-        $this->env->getRuntime("Symfony\\Component\\Form\\FormRenderer")->setTheme((isset($context["filters_form"]) || array_key_exists("filters_form", $context) ? $context["filters_form"] : (function () { throw new RuntimeError('Variable "filters_form" does not exist.', 3, $this->source); })()), CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["ea"]) || array_key_exists("ea", $context) ? $context["ea"] : (function () { throw new RuntimeError('Variable "ea" does not exist.', 3, $this->source); })()), "crud", [], "any", false, false, false, 3), "formThemes", [], "any", false, false, false, 3), false);
-        // line 4
+        // line 1
         yield "
 ";
-        // line 5
-        yield         $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderBlock((isset($context["filters_form"]) || array_key_exists("filters_form", $context) ? $context["filters_form"] : (function () { throw new RuntimeError('Variable "filters_form" does not exist.', 5, $this->source); })()), 'form_start', ["attr" => ["id" => CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source,         // line 6
-(isset($context["filters_form"]) || array_key_exists("filters_form", $context) ? $context["filters_form"] : (function () { throw new RuntimeError('Variable "filters_form" does not exist.', 6, $this->source); })()), "vars", [], "any", false, false, false, 6), "id", [], "any", false, false, false, 6), "data-ea-filters-form-id" => CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source,         // line 7
-(isset($context["filters_form"]) || array_key_exists("filters_form", $context) ? $context["filters_form"] : (function () { throw new RuntimeError('Variable "filters_form" does not exist.', 7, $this->source); })()), "vars", [], "any", false, false, false, 7), "id", [], "any", false, false, false, 7)]]);
-        // line 8
+        // line 2
+        $this->env->getRuntime("Symfony\\Component\\Form\\FormRenderer")->setTheme((isset($context["filters_form"]) || array_key_exists("filters_form", $context) ? $context["filters_form"] : (function () { throw new RuntimeError('Variable "filters_form" does not exist.', 2, $this->source); })()), CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["ea"]) || array_key_exists("ea", $context) ? $context["ea"] : (function () { throw new RuntimeError('Variable "ea" does not exist.', 2, $this->source); })()), "crud", [], "any", false, false, false, 2), "formThemes", [], "any", false, false, false, 2), false);
+        // line 3
+        yield "
+";
+        // line 4
+        yield         $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderBlock((isset($context["filters_form"]) || array_key_exists("filters_form", $context) ? $context["filters_form"] : (function () { throw new RuntimeError('Variable "filters_form" does not exist.', 4, $this->source); })()), 'form_start', ["attr" => ["id" => CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source,         // line 5
+(isset($context["filters_form"]) || array_key_exists("filters_form", $context) ? $context["filters_form"] : (function () { throw new RuntimeError('Variable "filters_form" does not exist.', 5, $this->source); })()), "vars", [], "any", false, false, false, 5), "id", [], "any", false, false, false, 5), "data-ea-filters-form-id" => CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source,         // line 6
+(isset($context["filters_form"]) || array_key_exists("filters_form", $context) ? $context["filters_form"] : (function () { throw new RuntimeError('Variable "filters_form" does not exist.', 6, $this->source); })()), "vars", [], "any", false, false, false, 6), "id", [], "any", false, false, false, 6)]]);
+        // line 7
         yield "
     ";
-        // line 11
+        // line 10
         yield "    ";
         $context['_parent'] = $context;
-        $context['_seq'] = CoreExtension::ensureTraversable($this->extensions['EasyCorp\Bundle\EasyAdminBundle\Twig\EasyAdminTwigExtension']->flattenArray((isset($context["form_action_query_string_as_array"]) || array_key_exists("form_action_query_string_as_array", $context) ? $context["form_action_query_string_as_array"] : (function () { throw new RuntimeError('Variable "form_action_query_string_as_array" does not exist.', 11, $this->source); })())));
+        $context['_seq'] = CoreExtension::ensureTraversable($this->extensions['EasyCorp\Bundle\EasyAdminBundle\Twig\EasyAdminTwigExtension']->flattenArray((isset($context["form_action_query_string_as_array"]) || array_key_exists("form_action_query_string_as_array", $context) ? $context["form_action_query_string_as_array"] : (function () { throw new RuntimeError('Variable "form_action_query_string_as_array" does not exist.', 10, $this->source); })())));
         foreach ($context['_seq'] as $context["paramName"] => $context["paramValue"]) {
-            // line 12
+            // line 11
             yield "        <input type=\"hidden\" name=\"";
             yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($context["paramName"], "html", null, true);
             yield "\" value=\"";
@@ -72,15 +75,15 @@ class __TwigTemplate_5578a68b488db0e16c02329579750e6c extends Template
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['paramName'], $context['paramValue'], $context['_parent']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 14
+        // line 13
         yield "
     ";
-        // line 15
-        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock((isset($context["filters_form"]) || array_key_exists("filters_form", $context) ? $context["filters_form"] : (function () { throw new RuntimeError('Variable "filters_form" does not exist.', 15, $this->source); })()), 'widget');
+        // line 14
+        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock((isset($context["filters_form"]) || array_key_exists("filters_form", $context) ? $context["filters_form"] : (function () { throw new RuntimeError('Variable "filters_form" does not exist.', 14, $this->source); })()), 'widget');
         yield "
 ";
-        // line 16
-        yield         $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderBlock((isset($context["filters_form"]) || array_key_exists("filters_form", $context) ? $context["filters_form"] : (function () { throw new RuntimeError('Variable "filters_form" does not exist.', 16, $this->source); })()), 'form_end');
+        // line 15
+        yield         $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderBlock((isset($context["filters_form"]) || array_key_exists("filters_form", $context) ? $context["filters_form"] : (function () { throw new RuntimeError('Variable "filters_form" does not exist.', 15, $this->source); })()), 'form_end');
         yield "
 ";
         
@@ -113,13 +116,12 @@ class __TwigTemplate_5578a68b488db0e16c02329579750e6c extends Template
      */
     public function getDebugInfo(): array
     {
-        return array (  83 => 16,  79 => 15,  76 => 14,  65 => 12,  60 => 11,  57 => 8,  55 => 7,  54 => 6,  53 => 5,  50 => 4,  48 => 3,);
+        return array (  86 => 15,  82 => 14,  79 => 13,  68 => 11,  63 => 10,  60 => 7,  58 => 6,  57 => 5,  56 => 4,  53 => 3,  51 => 2,  48 => 1,);
     }
 
     public function getSourceContext(): Source
     {
-        return new Source("{# @var ea \\EasyCorp\\Bundle\\EasyAdminBundle\\Context\\AdminContext #}
-{# @var filters_form \\EasyCorp\\Bundle\\EasyAdminBundle\\Form\\Type\\FiltersFormType #}
+        return new Source("
 {% form_theme filters_form with ea.crud.formThemes only %}
 
 {{ form_start(filters_form, { attr: {

@@ -177,7 +177,17 @@
                     <ul>
                         {% for offre in offres %}
                             <li>
-                                {{ offre.position }} - Statut : {{ offre.status }}
+                                {{ offre.position }} 
+                                - Statut : 
+                                {% if offre.status == 'en_attente' %}
+                                    <span style="color: orange;">En attente</span>
+                                {% elseif offre.status == 'acceptee' %}
+                                    <span style="color: green;">Acceptée</span>
+                                {% elseif offre.status == 'refusee' %}
+                                    <span style="color: red;">Refusée</span>
+                                {% else %}
+                                    <span style="color: gray;">En attente</span>
+                                {% endif %} 
                             </li>
                         {% endfor %}
                     </ul>

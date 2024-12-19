@@ -10,7 +10,7 @@ parameters:
     logo_directory: '%kernel.project_dir%/public/uploads/joblogos'
     locale: 'en'
     max_jobs_on_homepage: 10
-    admin_email: 'marilyneyapo@stratos-co.com'
+    admin_email: 'lorrainemarilyne@gmail.com'
 
 
 services:
@@ -26,9 +26,9 @@ services:
             $requestStack: '@request_stack'
             $entityManager: '@doctrine.orm.entity_manager'
 
-    #App\Service\EmailService:
-        #arguments:
-        # $adminEmail: '%admin_email%'
+    App\Service\EmailService:
+        arguments:
+            $adminEmail: '%admin_email%'
 
     
     App\Service\AdminNotificationService:

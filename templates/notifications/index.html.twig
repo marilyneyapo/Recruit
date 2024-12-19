@@ -5,29 +5,16 @@
 
     <h2>Nouvelles Candidatures ({{ newCandidaturesCount }})</h2>
 
-    {% for candidature in candidatures %}
-        <h3>Candidature de {{ candidature.user.firstName }} {{ candidature.user.lastName }}</h3>
+    <!-- Bouton Analyser pour toutes les candidatures -->
+    <button id="analyzeAllButton" class="analyze-button" onclick="showLoadingMessage()">
+        Analyser toutes les candidatures
+    </button>
 
-        <ul>
-            {% for notification in notifications %}
-                <li>{{ notification }}</li>
-            {% endfor %}
-        </ul>
-
-        <h4>Questions et Réponses</h4>
-        <ul>
-            {% for answer in candidature.user.answers %}
-                <li>
-                    <strong>{{ answer.question.text }}:</strong>
-                    {% if answer.question.type == 'text' %}
-                        {{ answer.answerText }}
-                    {% else %}
-                        {{ answer.answerOptions }}
-                    {% endif %}
-                </li>
-            {% endfor %}
-        </ul>
-    {% endfor %}
+    <!-- Message de chargement global -->
+    <div id="loadingMessage" class="loading-message" style="display:none;">
+        Fonctionnalité pas encore disponible...
+        <div class="spinner"></div>
+    </div>
 
     <h2>Candidatures</h2>
     <table>
@@ -67,4 +54,59 @@
             {% endfor %}
         </tbody>
     </table>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        // Fonction pour afficher le message de chargement et cacher le bouton "Analyser"
+        function showLoadingMessage() {
+            // Cacher le bouton "Analyser"
+            document.getElementById('analyzeAllButton').style.display = 'none';
+            // Afficher le message de chargement
+            document.getElementById('loadingMessage').style.display = 'block';
+        }
+    </script>
+{% endblock %}
+
+{% block stylesheets %}
+    <style>
+        /* Styles pour le bouton "Analyser" */
+        .analyze-button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .analyze-button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Styles pour le message de chargement */
+        .loading-message {
+            margin-top: 10px;
+            font-size: 16px;
+            color: #999;
+            display: inline-block;
+        }
+
+        /* Animation pour le spinner */
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3498db;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            animation: spin 2s linear infinite;
+            margin-left: 10px;
+        }
+
+        /* Animation de rotation pour le spinner */
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
 {% endblock %}

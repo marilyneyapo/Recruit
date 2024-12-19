@@ -2,10 +2,15 @@
 
 namespace App\Controller;
 
+use App\Form\ResetPasswordType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Doctrine\ORM\EntityManagerInterface;
 
 class LoginController extends AbstractController
 {
@@ -24,6 +29,41 @@ class LoginController extends AbstractController
     public function loginCheck(): void
     {
         // Methode gérée automatiquement par
+    }
+
+    #[Route('/reset-password', name: 'app_reset_password')]
+    public function resetPassword(Request $request, UserPasswordHasherInterface $passwordHasher, EntityManagerInterface $entityManager): Response
+    {
+        // Créez un formulaire pour réinitialiser le mot de passe
+        $form = $this->createForm(ResetPasswordType::class);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+            $newPassword = $data['password'];
+
+            // Récupérer l'utilisateur actuellement connecté
+            $user = $this->getUser();
+
+            if ($user instanceof PasswordAuthenticatedUserInterface) {
+                // Encoder le nouveau mot de passe
+                $encodedPassword = $passwordHasher->hashPassword($user, $newPassword);
+                $user->setPassword($encodedPassword);
+
+                // Sauvegarder l'utilisateur avec le nouveau mot de passe
+                $entityManager->flush();
+
+                $this->addFlash('success', 'Votre mot de passe a été réinitialisé avec succès.');
+                return $this->redirectToRoute('app_login');
+            } else {
+                $this->addFlash('error', 'Utilisateur non trouvé.');
+            }
+        }
+
+        return $this->render('security/reset_password.html.twig', [
+            'form' => $form->createView(),
+        ]);
     }
 
 

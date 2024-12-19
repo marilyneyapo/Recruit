@@ -2,7 +2,7 @@
 framework:
     secret: '%env(APP_SECRET)%'
     #csrf_protection: true
-    #error_controller: 'App\Controller\ErrorController::showErrorPage'
+    error_controller: 'App\Controller\ErrorController::showErrorPage'
 
 
     # Note that the session will be started ONLY if you read or write from it.
@@ -14,7 +14,7 @@ framework:
 
 
     mailer:
-        dsn: 'smtp://localhost:2525' 
+        dsn: 'smtp://localhost:2525'  
         
 
     #esi: true

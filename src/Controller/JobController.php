@@ -24,45 +24,59 @@ class JobController extends AbstractController
         $this->categoryRepository = $categoryRepository;
     }
     #[Route('/', name: 'job.index', methods: 'GET')]
-public function index(Request $request): Response
-{
-    // Créer le formulaire de recherche
-    $form = $this->createForm(JobSearchType::class);
-    $form->handleRequest($request);
+    public function index(Request $request): Response
+    {
+        // Créer le formulaire de recherche
+        $form = $this->createForm(JobSearchType::class);
+        $form->handleRequest($request);
 
-    // Initialiser la variable des résultats de recherche
-    $jobs = [];
+        // Initialiser la variable des résultats de recherche
+        $jobs = [];
 
-    // Si le formulaire est soumis et valide, effectuer la recherche
-    if ($form->isSubmitted() && $form->isValid()) {
-        $data = $form->getData();
-        $jobs = $this->jobRepository->findBySearchCriteria($data);
+        // Si le formulaire est soumis et valide, effectuer la recherche
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+            $jobs = $this->jobRepository->findBySearchCriteria($data);
+        }
+
+        // Récupérer toutes les catégories et autres données
+        $categories = $this->categoryRepository->findAll();
+        $locations = $this->jobRepository->findUniqueLocations();
+        $types = $this->jobRepository->findUniqueTypes();
+
+        // Renvoyer la vue avec le formulaire de recherche et les résultats
+        return $this->render('job/index.html.twig', [
+            'categories' => $categories,
+            'locations' => $locations,
+            'types' => $types,
+            'searchForm' => $form->createView(), 
+            'jobs' => $jobs,  
+        ]);
     }
-
-    // Récupérer toutes les catégories et autres données
-    $categories = $this->categoryRepository->findAll();
-    $locations = $this->jobRepository->findUniqueLocations();
-    $types = $this->jobRepository->findUniqueTypes();
-
-    // Renvoyer la vue avec le formulaire de recherche et les résultats
-    return $this->render('job/index.html.twig', [
-        'categories' => $categories,
-        'locations' => $locations,
-        'types' => $types,
-        'searchForm' => $form->createView(), // Passer le formulaire à la vue
-        'jobs' => $jobs,  // Passer les résultats de recherche à la vue
-    ]);
-}
 
 
 
     #[Route('/list', name: 'job.list', methods: 'GET')]
     public function list(Request $request): Response
     {
+
+        $criteria = [
+            'query' => $request->query->get('query', ''),
+            'location' => $request->query->get('location', ''),
+            'type' => $request->query->get('type', ''),
+            'category' => $request->query->get('category', ''),
+        ];
+
+        // Recherche des offres avec les critères
+        $jobs = $this->jobRepository->findBySearchCriteria($criteria);
+
+        if (empty($jobs)) {
+            throw $this->createNotFoundException('Aucune offre trouvée pour les critères spécifiés.');
+        }
+
         // Retrieve selected category from query parameters
         $selectedCategory = $request->query->get('category', null);
-        // Fetch all jobs
-        $jobs = $this->jobRepository->findAll();
+
         // Fetch all categories
         $categories = $this->categoryRepository->findAll();
 
@@ -70,6 +84,7 @@ public function index(Request $request): Response
             'jobs' => $jobs,
             'categories' => $categories,
             'selectedCategory' => $selectedCategory,
+            'criteria' => $criteria,
         ]);
     }
 
@@ -144,7 +159,6 @@ public function index(Request $request): Response
 
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
-            dd($data);
             $jobs = $jobRepository->findBySearchCriteria($data);
         }
 
